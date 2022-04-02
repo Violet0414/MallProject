@@ -15,6 +15,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    // 222
     path: '',
     component: Header,
     children: [
