@@ -31,7 +31,7 @@ export default {
   computed: {
     totalPrice: function() {
       return parseFloat(this.sum).toFixed(2) 
-      // 222
+      
     }
   },
 
