@@ -85,6 +85,7 @@ export default {
     color: red;
     left: 88%;
     top: 90%;
+    /*  */
   }
 
 </style>
