@@ -81,8 +81,10 @@ export default {
   
   .totalPrice {
     position: fixed;
-    left: 90%;
-    top: 80%;
+    font-size: 20px;
+    color: red;
+    left: 88%;
+    top: 90%;
   }
 
 </style>
