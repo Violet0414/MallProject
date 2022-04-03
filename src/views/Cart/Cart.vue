@@ -61,6 +61,23 @@ export default {
 
 
   methods: {
+    // 购物车数据绑定
+    getCart(page) {
+      this.$api.getCart({
+        page,
+        uid: 666
+      }).then(res => {
+        if(res.status == 200){
+          this.cartList = res.data.data
+          this.total = res.data.total;
+          this.pageSize = res.data.pageSize;
+        }
+        console.log(res.data);
+        // console.log("cartList:", this.cartList)
+      })
+    },
+
+    // 购物车结算显示数据
     sumPrice(itemGid, sumPrice, itemName, sumNum, checked) {
       this.byte = itemName + '×' + sumNum
       if(checked === true){
@@ -76,23 +93,7 @@ export default {
       // console.log('祖爷爷组件接受到sumPrice:', this.sum, " itemName:", itemName, "sumNum:", this.sumNum, checked)
     },
 
-    // 购物车数据绑定
-    getCart(page) {
-
-      this.$api.getCart({
-        page,
-        uid: 666
-      }).then(res => {
-        if(res.status == 200){
-          this.cartList = res.data.data
-          this.total = res.data.total;
-          this.pageSize = res.data.pageSize;
-        }
-        console.log(res.data);
-        // console.log("cartList:", this.cartList)
-      })
-    },
-
+    // 购物车结算事件
     settlement() {
       console.log('结算')
       console.log('结算ID:', this.idList)
@@ -119,9 +120,9 @@ export default {
                 type: 'success',
                 message: '结算成功'
               })
-              setTimeout(() => {
-                this.reload()
-              }, 700);
+              // setTimeout(() => {
+              //   this.reload()
+              // }, 700);
             }
           })
       }else {

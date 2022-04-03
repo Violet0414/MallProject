@@ -366,7 +366,7 @@ router.get("/delGoods", (req, res) => {
 router.get("/getCart", (req, res) => {
     const page = req.query.page || 1;
     var uid = req.query.uid;
-    const sql = "select uid, goods.gid, goods.name, goods.img, goods.price, goods.introduction " +
+    const sql = "select uid, cart.number, goods.gid, goods.name, goods.img, goods.price, goods.introduction " +
     "from cart,goods where cart.uid =" + uid + " and cart.gid = goods.gid order by goods.gid asc limit 5 offset " + (page - 1) * 5
     sqlFn(sql, null, (result) => {
         const len = result.length;
@@ -416,6 +416,7 @@ router.get("/delCart", (req, res) => {
     const sql = "delete from cart where uid=" + uid + " and gid in(" + gid + ")"
     var arr = [uid, gid];
     sqlFn(sql, arr, result => {
+        console.log(sql)
         if (result.affectedRows > 0) {
             res.send({
                 status: 200,
@@ -441,9 +442,7 @@ router.get("/addOrder", (req, res) => {
     var time = new Date();
     const sql = "insert into orders values (null,?,?,?,?,?)"
     var arr = [uid, detail, prcie, address, time.toLocaleDateString()];
-    console.log('============', sql)
     sqlFn(sql, arr, result => {
-        console.log('============', sql)
         if (result.affectedRows > 0) {
             res.send({
                 status: 200,

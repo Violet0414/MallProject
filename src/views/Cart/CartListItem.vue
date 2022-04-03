@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <el-input-number class="numSelect" size="small" v-model="num"></el-input-number>
+    <el-input-number class="numSelect" size="small" v-model="num" :min="1"></el-input-number>
   </div>
 </template>
 
@@ -29,7 +29,7 @@
         itemGid: this.itemInfo.gid,
         itemName: this.itemInfo.name,
         itemPrice: this.itemInfo.price,
-        num: 1,
+        num: this.itemInfo.number,
         sum: 0,
         gNum: '',
       }
@@ -44,7 +44,7 @@
 
 
     created() {
-      // console.log('itemInfo:', this.itemInfo)
+      console.log('itemInfo:', this.itemInfo)
     },
 
     methods: {
