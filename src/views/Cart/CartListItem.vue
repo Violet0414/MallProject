@@ -1,7 +1,7 @@
 <template>
   <div id="shop-item">
     <div class="item-selector">
-      <CheckButton :itemPrice="itemPrice" @sumPrice="sumPrice" :num="num"></CheckButton>
+      <CheckButton :itemPrice="itemPrice" :itemGid="itemGid" :itemName="itemName" @sumPrice="sumPrice" :num="num"></CheckButton>
     </div>
     <div class="item-img">
       <img :src="itemInfo.img" alt="商品图片">
@@ -26,9 +26,12 @@
     name: "ShopCartItem",
     data() {
       return {
+        itemGid: this.itemInfo.gid,
+        itemName: this.itemInfo.name,
         itemPrice: this.itemInfo.price,
         num: 1,
         sum: 0,
+        gNum: '',
       }
     },
 
@@ -45,10 +48,8 @@
     },
 
     methods: {
-      sumPrice(sumPrice) {
-        this.sum = sumPrice + this.sum
-        console.log('父组件接受到sumPrice:', this.sum)
-        this.$emit('sumPrice', sumPrice)
+      sumPrice(sumPrice, itemName, sumNum, checked) {
+        this.$emit('sumPrice', sumPrice, itemName, sumNum, checked)
       }
     }
   }

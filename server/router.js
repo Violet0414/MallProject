@@ -232,53 +232,6 @@ router.get("/addComments", (req, res) => {
 })
 
 
-// 添加到购物车
-router.get("/addCart", (req, res) => {
-    var uid = req.query.uid;
-    var gid = req.query.gid;
-    var gname = req.query.gname;
-    var imgUrl = req.query.imgUrl || "";
-    const sql = "insert into cart values (?,?,?,?)"
-    var arr = [uid, gid, gname, imgUrl];
-    sqlFn(sql, arr, result => {
-        if (result.affectedRows > 0) {
-            res.send({
-                status: 200,
-                msg: "添加成功"
-            })
-        } else {
-            res.send({
-                status: 500,
-                msg: "添加失败"
-            })
-        }
-    })
-})
-
-
-// 从购物车删除
-router.get("/delCart", (req, res) => {
-    var uid = req.query.uid;
-    var gid = req.query.gid;
-    const sql = "delete from cart where uid=" + uid + " and gid =" + gid
-    var arr = [uid, gid];
-    sqlFn(sql, arr, result => {
-        if (result.affectedRows > 0) {
-            res.send({
-                status: 200,
-                msg: "删除成功"
-            })
-        } else {
-            res.send({
-                status: 500,
-                msg: "删除失败"
-            })
-        }
-    })
-})
-
-
-
 
 // ============================================== 个人信息操作接口 ==============================================
 
@@ -409,11 +362,11 @@ router.get("/delGoods", (req, res) => {
 
 // ============================================= 购物车 ================================================
 
-
+// 获取购物车数据
 router.get("/getCart", (req, res) => {
     const page = req.query.page || 1;
     var uid = req.query.uid;
-    const sql = "select uid, goods.name, goods.img, goods.price, goods.introduction " +
+    const sql = "select uid, goods.gid, goods.name, goods.img, goods.price, goods.introduction " +
     "from cart,goods where cart.uid =" + uid + " and cart.gid = goods.gid order by goods.gid asc limit 5 offset " + (page - 1) * 5
     sqlFn(sql, null, (result) => {
         const len = result.length;
@@ -433,6 +386,49 @@ router.get("/getCart", (req, res) => {
     })
 })
 
+
+// 添加到购物车
+router.get("/addCart", (req, res) => {
+    var uid = req.query.uid;
+    var gid = req.query.gid;
+    const sql = "insert into cart values (?,?,1)"
+    var arr = [uid, gid];
+    sqlFn(sql, arr, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "添加成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "添加失败"
+            })
+        }
+    })
+})
+
+
+// 从购物车移除
+router.get("/delCart", (req, res) => {
+    var uid = req.query.uid;
+    var gid = req.query.gid;
+    const sql = "delete from cart where uid=" + uid + " and gid =" + gid
+    var arr = [uid, gid];
+    sqlFn(sql, arr, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "删除成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "删除失败"
+            })
+        }
+    })
+})
 
 
 // ============================================== ======= ==============================================

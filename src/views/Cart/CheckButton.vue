@@ -2,35 +2,63 @@
   <div>
     <el-checkbox 
       v-model="checked"
+      :lable= "this.itemGid"
       @change="change">
     </el-checkbox>
+    <el-button type="danger" icon="el-icon-delete" circle class="delBtn" @click="delCart"></el-button>
   </div>
 </template>
 
 <script>
 export default {
+  inject: ['reload'],
+
   data() {
     return {
-      checked: null,
-      checkedPrice: 0,
-      sumPrice: 0
+      checked: false,
+      sumPrice: 0,
+      sunNum: '',
     }
   },
 
-  props: ['itemPrice', 'num'],
+  props: ['itemGid', 'itemName', 'itemPrice', 'num'],
 
 
   methods: {
     change() {
-      console.log('itemPrice:', this.itemPrice)
-      console.log('num:', this.num)
-      if(this.checked === true) {
-        this.sumPrice = this.itemPrice * this.num
-      } else {
-        this.sumPrice = -1 * this.itemPrice * this.num 
-      }
-      this.$emit('sumPrice', this.sumPrice)
+      this.sumPrice = this.itemPrice * this.num
+      this.sumNum = this.num
+    
+      this.$emit('sumPrice', this.sumPrice, this.itemName, this.sumNum, this.checked)
     },
+
+
+    delCart() {
+      console.log(this.itemGid)
+      this.$confirm('此操作将移除该商品, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$api.delCart({
+            gid: this.itemGid,
+            uid: 666,
+          }).then(res => {
+            if(res.data.status === 200) {
+                this.$message({
+                type: 'success',
+                message: '删除成功'
+              })
+              this.reload()                  // 更新视图
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });          
+        });
+    }
 
 
   }
@@ -41,5 +69,9 @@ export default {
 </script>
 
 <style>
-
+  .delBtn {
+    position: absolute;
+    margin-left: 100%;
+    margin-top: 3%;
+  }
 </style>

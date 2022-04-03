@@ -9,8 +9,6 @@ const base ={
     goodsDetail: '/api/goodsDetail',                // 商品详情
     showComments: '/api/showComments',              // 评论列表
     addComments: '/api/addComments',                // 添加评论
-    addCart: '/api/addCart',                        // 添加到购物车
-    delCart: '/api/delCart',                        // 从购物车删除
     getSearch: '/api/getSearch',                    // 获取搜索结果
 
 
@@ -20,7 +18,9 @@ const base ={
     addGoods: '/api/addGoods',                      // 添加商品
 
 // ============================================================================================    
-    getCart: 'api/getCart',                         // 获取购物车数据
+    getCart: '/api/getCart',                        // 获取购物车数据
+    addCart: '/api/addCart',                        // 添加到购物车
+    delCart: '/api/delCart',                        // 移出购物车
 
 
 // ============================================================================================

@@ -19,7 +19,8 @@
 
     data() {
       return {
-        sum: 0
+        sum: 0,
+        gNum: '',
       }
     },
     props: {
@@ -32,14 +33,12 @@
     },
 
     mounted() {
-      console.log('cartList:', this.cartList)
+      // console.log('cartList:', this.cartList)
     },
 
     methods: {
-      sumPrice(sumPrice) {
-        this.sum = sumPrice
-        console.log('爷爷组件接受到sumPrice:', this.sum)
-        this.$emit('sumPrice', sumPrice)
+      sumPrice(sumPrice, itemName, sumNum, checked) {
+        this.$emit('sumPrice', sumPrice, itemName, sumNum, checked)
       }
     },
 	}

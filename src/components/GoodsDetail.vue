@@ -12,7 +12,7 @@
         
 
         <div class="block">
-          <img :src="imgUrl"></img>
+          <img :src="imgUrl">
         </div>
 
         <div class="tabDiv">
