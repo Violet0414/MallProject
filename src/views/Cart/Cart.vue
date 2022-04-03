@@ -20,6 +20,8 @@ import MyPage from '../../components/MyPage.vue'
 
 export default {
   name: 'Cart',
+  inject: ['reload'],
+
   components: {
     CartList,
     MyPage,
@@ -32,9 +34,10 @@ export default {
       total: 5,
       pageSize: 1,
       
-      sum: 0,
-      byte: '',
-      gList: [],
+      sum: 0,       // 总价
+      byte: '',     // 清单字节
+      gList: [],    // 清单
+      idList: [],   // 选中的商品id
     };
   },
 
@@ -45,6 +48,10 @@ export default {
 
     totalNum: function() {
       return this.gList.join(",");
+    },
+
+    totalId: function()  {
+      return this.idList.join(",")
     }
   },
 
@@ -54,18 +61,18 @@ export default {
 
 
   methods: {
-    sumPrice(sumPrice, itemName, sumNum, checked) {
+    sumPrice(itemGid, sumPrice, itemName, sumNum, checked) {
       this.byte = itemName + '×' + sumNum
       if(checked === true){
         this.sum = this.sum + sumPrice
         this.gList = this.gList.concat(this.byte)
+        this.idList = this.idList.concat(itemGid)
       } else {
-        console.log('sumNum:', sumNum)
         this.sum = this.sum - sumPrice
-        console.log("byte:", this.byte)
-        console.log("this.gList.indexOf(this.byte):", this.gList.indexOf(this.byte))
         this.gList.splice(this.gList.indexOf(this.byte), 1);
+        this.idList.splice(this.idList.indexOf(itemGid), 1);
       }
+      console.log('itemGid:', itemGid)
       // console.log('祖爷爷组件接受到sumPrice:', this.sum, " itemName:", itemName, "sumNum:", this.sumNum, checked)
     },
 
@@ -82,12 +89,46 @@ export default {
           this.pageSize = res.data.pageSize;
         }
         console.log(res.data);
-        console.log("cartList:", this.cartList)
+        // console.log("cartList:", this.cartList)
       })
     },
 
     settlement() {
       console.log('结算')
+      console.log('结算ID:', this.idList)
+      console.log('结算清单:', this.totalNum, this.totalPrice)
+      console.log('======')
+      
+      this.$api.addOrder({
+        uid: 666,
+        address: '测试地址',
+
+        gid: this.idList,
+        detail: this.totalNum,
+        prcie: this.totalPrice,
+      })
+      .then((res) => {
+      if(res.status == 200){
+          console.log('订单生成完毕')
+          this.$api.delCart({
+            uid: 666,
+            gid: this.idList,
+          }).then((res) => {
+            if(res.status == 200){
+              this.$message({
+                type: 'success',
+                message: '结算成功'
+              })
+              setTimeout(() => {
+                this.reload()
+              }, 700);
+            }
+          })
+      }else {
+          this.$message.error('结算失败');
+          return false; 
+          }
+      });
     },
 
     // 页面改变

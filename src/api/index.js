@@ -84,6 +84,13 @@ const api = {
         })
     },
 
+    
+    // 结算生成订单
+    addOrder(params) {
+        return axios.get(base.addOrder, {
+            params 
+        })
+    },
 
 // =================================== 商品部分 ===================================
 

@@ -29,7 +29,7 @@ export default {
       this.sumPrice = this.itemPrice * this.num
       this.sumNum = this.num
     
-      this.$emit('sumPrice', this.sumPrice, this.itemName, this.sumNum, this.checked)
+      this.$emit('sumPrice', this.itemGid, this.sumPrice, this.itemName, this.sumNum, this.checked)
     },
 
 

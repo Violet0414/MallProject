@@ -37,8 +37,8 @@
     },
 
     methods: {
-      sumPrice(sumPrice, itemName, sumNum, checked) {
-        this.$emit('sumPrice', sumPrice, itemName, sumNum, checked)
+      sumPrice(itemGid, sumPrice, itemName, sumNum, checked) {
+        this.$emit('sumPrice', itemGid, sumPrice, itemName, sumNum, checked)
       }
     },
 	}

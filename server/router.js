@@ -413,7 +413,7 @@ router.get("/addCart", (req, res) => {
 router.get("/delCart", (req, res) => {
     var uid = req.query.uid;
     var gid = req.query.gid;
-    const sql = "delete from cart where uid=" + uid + " and gid =" + gid
+    const sql = "delete from cart where uid=" + uid + " and gid in(" + gid + ")"
     var arr = [uid, gid];
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
@@ -429,6 +429,36 @@ router.get("/delCart", (req, res) => {
         }
     })
 })
+
+// ============================================= 订单 ================================================
+
+// 添加订单
+router.get("/addOrder", (req, res) => {        
+    var uid = req.query.uid;
+    var detail = req.query.detail;
+    var prcie = req.query.prcie;
+    var address = req.query.address;
+    var time = new Date();
+    const sql = "insert into orders values (null,?,?,?,?,?)"
+    var arr = [uid, detail, prcie, address, time.toLocaleDateString()];
+    console.log('============', sql)
+    sqlFn(sql, arr, result => {
+        console.log('============', sql)
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "结算成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "结算失败"
+            })
+        }
+    })
+})
+
+
 
 
 // ============================================== ======= ==============================================

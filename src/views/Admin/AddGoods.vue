@@ -1,5 +1,5 @@
 <template>
-    <diV>
+    <div>
         <el-dialog
         :title="title"
         :visible.sync="dialogVisible"
@@ -67,7 +67,7 @@
                 </el-form-item>
             </el-form>
         </el-dialog>
-    </diV>
+    </div>
 </template>
 
 <script>
