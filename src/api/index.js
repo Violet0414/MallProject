@@ -84,10 +84,18 @@ const api = {
         })
     },
 
-    
+// =================================== 订单部分 ===================================
+
     // 结算生成订单
     addOrder(params) {
         return axios.get(base.addOrder, {
+            params 
+        })
+    },
+
+    // 管理员展示订单
+    showOrders(params) {
+        return axios.get(base.showOrders, {
             params 
         })
     },

@@ -120,9 +120,9 @@ export default {
                 type: 'success',
                 message: '结算成功'
               })
-              // setTimeout(() => {
-              //   this.reload()
-              // }, 700);
+              setTimeout(() => {
+                this.reload()
+              }, 700);
             }
           })
       }else {

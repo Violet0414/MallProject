@@ -85,6 +85,8 @@
           } else {
             this.total = 1;
             this.pageSize = 1;
+            this.$message.error('暂无此商品');
+            return false; 
           }
         });
       },

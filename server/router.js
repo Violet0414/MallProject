@@ -135,9 +135,8 @@ router.get('/getSearch', (req, res) => {
     sqlFn(sqlLen, null, data => {
         let len = data.length;
         const sql = 
-        "select * from goods where concat(`" + type + "`) like '%" 
-        + search + "%' order by gid asc limit 15 offset " + (page - 1) * 15;
-        console.log(sql)
+        "select * from goods where concat(`" + type + "`) like '%" + search 
+        + "%' order by gid asc limit 15 offset " + (page - 1) * 15;
         sqlFn(sql, null, result => {
             if (result.length > 0) {
                 res.send({
@@ -437,6 +436,7 @@ router.get("/addOrder", (req, res) => {
     var time = new Date();
     const sql = "insert into orders values (null,?,?,?,?,?)"
     var arr = [uid, detail, prcie, address, time.toLocaleDateString()];
+    console.log('=++==++=', time.toLocaleDateString())
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
             res.send({
@@ -447,6 +447,28 @@ router.get("/addOrder", (req, res) => {
             res.send({
                 status: 500,
                 msg: "结算失败"
+            })
+        }
+    })
+})
+
+// 管理员获取订单列表
+router.get("/showOrders", (req, res) => {
+    const page = req.query.page || 1;
+    const sql = "select * from orders order by oid asc limit 12 offset " + (page - 1) * 12
+    sqlFn(sql, null, (result) => {
+        const len = result.length;
+        if (result.length > 0) {
+            res.send({
+                status: 200,
+                data: result,
+                pageSize: 12,
+                total: len
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "暂无数据"
             })
         }
     })

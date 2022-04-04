@@ -5,6 +5,10 @@
         <h3 class="medium">{{ item }}</h3>
       </el-carousel-item>
     </el-carousel>
+    <div class="test">
+    </div>
+    <div class="test2">
+    </div>
     <h2 style="text-align: center; color: black;">特价商品</h2>
     <div class="lowDiv">
       <LowPrice></LowPrice>
@@ -37,6 +41,25 @@ export default {
 </script>
 
 <style>
+  .test {
+    position: absolute;
+    background-image: url('../../assets/test.png');
+    background-size: cover;
+    height: 200px;
+    width: 200px;
+    margin-top: 15px;
+  }
+
+  .test2 {
+    position: absolute;
+    background-image: url('../../assets/test.png');
+    background-size: cover;
+    height: 200px;
+    width: 200px;
+    margin-left: 85%;
+    margin-top: 15px;
+  }
+
   .outDiv {
     margin-top: 1%;
     margin: auto;
@@ -49,7 +72,6 @@ export default {
     width: 90%;
     margin-left: 7%;
     height: 250px;
-    /* margin: auto; */
     margin-top: 10%;
   }
 

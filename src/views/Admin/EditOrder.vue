@@ -2,7 +2,7 @@
   <div class="outDiv">
     <!-- 搜索栏区域 -->
     <div class="header">
-      <el-input placeholder="请输入您所要查询的商品" @change="searchInput" v-model="input" clearable></el-input>
+      <el-input placeholder="请输入您所要查询的订单" @change="searchInput" v-model="input" clearable></el-input>
       <el-button type="primary">查询</el-button>
       <el-button type="primary" @click="addGoods">添加</el-button>
     </div>
@@ -18,63 +18,48 @@
       
     <!-- 表单区域 -->
     <el-table
-    class="form"
-    :data="tableData"
-    border
-    style="width: 100%">
-      <el-table-column
-        prop="img"
-        label="商品图"
-        width="110">
-        <template slot-scope="scope">
-          <img :src="scope.row.img" style="width:100px;height:100px;"/>
-        </template>
-      </el-table-column>
+      class="form"
+      :data="tableData"
+      border
+      style="width: 100%">
 
       <el-table-column
-        prop="gid"
+        prop="oid"
         label="编号"
         width="110">
       </el-table-column>
       <el-table-column
-        prop="name"
-        label="名称"
+        prop="uid"
+        label="用户编号"
         width="110">
       </el-table-column>
       <el-table-column
-        prop="type"
-        label="类别"
-        width="80">
+        prop="detail"
+        label="清单"
+        width="300">
       </el-table-column>
       <el-table-column
         prop="price"
-        label="价格"
+        label="总价"
         width="80">
       </el-table-column>
       <el-table-column
-        prop="sales"
-        label="销量"
-        width="80">
+        prop="address"
+        label="地址"
+        width="180">
       </el-table-column>
       <el-table-column
-        prop="score"
-        label="评分"
-        width="80">
+        prop="time"
+        label="下单时间"
+        width="180">
       </el-table-column>
       <el-table-column
         label="操作"
-        width="300">
+        width="260">
             <template slot-scope="scope">
               <el-button size="mini" 
                 @click="handleDetail(scope.$index, scope.row)">
                 查看
-            </el-button>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)"
-                icon="el-icon-edit">
-                编辑
               </el-button>
               <el-button
                 size="mini"
@@ -88,20 +73,20 @@
     </el-table>
 
     <MyPage :total="total" :pageSize="pageSize" @changePage="changePage" class="page" :current-page="currentPage"></MyPage>
-    <Dialog ref="dialog" :title="title" :rowData="rowData"></Dialog>
+    <!-- <Dialog ref="dialog" :title="title" :rowData="rowData"></Dialog> -->
   </div>
 </template>
 
 
 <script>
   import MyPage from '../../components/MyPage.vue'
-  import Dialog from './AddGoods.vue'
+  // import Dialog from './AddGoods.vue'
   
 
   export default {
     components: {
       MyPage,
-      Dialog,
+      // Dialog,
     },
     data() {
       return {
@@ -120,9 +105,9 @@
     },
 
     methods: {
-      showGoods(page) {
-        console.log('showgoods执行=================')
-         this.$api.showGoods({
+      showOrders(page) {
+        console.log('showOrders执行=================')
+         this.$api.showOrders({
             page,
           }).then(res => {
             console.log(res.data);
@@ -139,7 +124,7 @@
       // 通过输入查询
       searchInput(val){
        if (!val) {
-        this.showGoods(1);
+        this.showOrders(1);
         this.currentPage = 1;
         return;
       }
@@ -173,7 +158,7 @@
       // 类别查询
       cHandleClick() {
         if(this.activeName === '全部'){
-          this.showGoods(1)
+          this.showOrders(1)
         }else{
           this.type = 'type';
           this.searchInput(this.activeName);
@@ -186,7 +171,7 @@
       changePage(num) {
           this.currentPage = num
           this.pageSize = this.pageSize;
-          this.showGoods(num);                //列表分页
+          this.showOrders(num);                //列表分页
       },
 
 
@@ -231,7 +216,7 @@
                 type: 'success',
                 message: '删除成功'
               })
-              this.showGoods(1)                  // 更新视图
+              this.showOrders(1)                  // 更新视图
             }
           })
         }).catch(() => {
@@ -245,7 +230,7 @@
     },
 
     created() {
-      this.showGoods(1)
+      this.showOrders(1)
     }
   }
 
@@ -270,7 +255,7 @@
     } 
 
   .form{
-    left: 10%;
+    left: 5%;
   }
 
   .page {
