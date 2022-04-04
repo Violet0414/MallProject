@@ -141,13 +141,14 @@
 
   .searchDiv {
     display: flex;
-    margin-top: -2%;
+    margin-top: 1%;
+
   }
 
   .searchDiv button {
     margin-left: 20px;
     height: 40px;
-    margin-top: 10px;
+    margin-top: 19px;
   }
 
   .listDiv {
@@ -155,7 +156,7 @@
       height: 250px;
       margin: auto;
       position: relative;
-      margin-top: 0%;
+      /* margin-top: 20px; */
   }
 
   .itemDiv {

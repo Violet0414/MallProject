@@ -1,17 +1,28 @@
 <template>
   <div class="imgItem">
-
       <div class="imgDiv">
-        <img :src="imgItem.img" @click="itemClick"></img>
+        <img :src="imgItem.img" @click="itemClick">
       </div>
 
        <div class="imgInfo" >
            <el-link @click="itemClick">
                 <p>{{imgItem.name}}</p>
-                <span>{{imgItem.price}}￥</span></span>
+                <span>{{imgItem.price}}￥</span>
            </el-link>
       </div>  
+       <!-- <el-card :body-style="{ padding: '0px' }">
+           <div class="imgDiv">
+                <img :src="imgItem.img" class="image" @click="itemClick">
+           </div>
+            <div style="padding: 14px;">
+                <span>{{imgItem.name}}</span>
+                <div class="bottom clearfix">
+                    <time class="time">{{imgItem.price}}￥</time>
+                </div>
+            </div>
+        </el-card> -->
   </div>
+  
 </template>
 
 <script>
@@ -45,6 +56,39 @@ export default {
 </script>
 
 <style scoped>
+      .time {
+    font-size: 13px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  }
+
+
+
+
     .imgItem{
         position: relative;
         margin-top: -9%;

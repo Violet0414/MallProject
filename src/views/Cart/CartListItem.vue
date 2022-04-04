@@ -59,13 +59,14 @@
   #shop-item {
     width: 100%;
     display: flex;
+    margin-left: 5%;
     font-size: 0;
     padding: 5px;
     border-bottom: 1px solid #ccc;
   }
 
   .item-selector {
-    width: 14%;
+    width: 3%;
     display: flex;
     justify-content: center;
     align-items: center;

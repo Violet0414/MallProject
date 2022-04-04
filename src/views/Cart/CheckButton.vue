@@ -71,7 +71,7 @@ export default {
 <style>
   .delBtn {
     position: absolute;
-    margin-left: 100%;
+    margin-left: 95%;
     margin-top: 3%;
   }
 </style>

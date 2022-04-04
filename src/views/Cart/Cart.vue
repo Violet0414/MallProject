@@ -2,8 +2,8 @@
   <div class="outside">
     <div class="foot">
       <div class="totalPrice">
-        清单：{{totalNum}}
-        合计:{{totalPrice}}￥
+        <p>清单：{{totalNum}}</p>
+        <span>合计:{{totalPrice}}￥</span>
         <el-button type="danger" round class="tBtn" @click="settlement">结算</el-button>
       </div>
     </div>
@@ -157,17 +157,24 @@ export default {
     left: 50%;
     margin-left:-40%;
     background-color: rgb(255, 255, 255);
-    border: 1px solid;
+    border: 1px solid #9b9b9b;
     border-radius: 30px;
     z-index: 9;
   }
   
-  .totalPrice {
-
+  .totalPrice p{
+    position: absolute;
     font-size: 20px;
     color: red;
-    left: 88%;
-    top: 90%;
+    left: 5%;
+    margin-top: -0.3%;
+  }
+
+  .totalPrice span {
+    position: absolute;
+    font-size: 20px;
+    color: red;
+    right: 20%;
   }
 
   .tBtn {

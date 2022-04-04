@@ -1,9 +1,11 @@
 <template>
     <div class="header">
       <el-row :gutter="20">
-        <el-col :span="3"><div class="grid-content bg-purple">
-          <el-link @click="linkHome">图</el-link>
-        </div></el-col>
+        <el-col :span="2">
+          <div class="grid-content bg-purple">
+            <div class="logoDiv"></div>
+          </div>
+        </el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="linkHome">首页</el-link>
         </div></el-col>
@@ -15,9 +17,6 @@
         </div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="linkCenter">个人中心</el-link>
-        </div></el-col>
-        <el-col :span="2"><div class="grid-content bg-purple">
-          <el-link>特价</el-link>
         </div></el-col>
       </el-row>
       <router-view></router-view>
@@ -66,9 +65,33 @@ export default {
 <style scoped>
     .header {
       position: relative;
-      background-color: #e6e6e6;
-      color: #333;
+      background-color: #ffffff;
+      color: rgb(255, 255, 255);
       text-align: center;
-      line-height: 60px;
+      /* height: 10%; */
+      line-height: 55px;
+      border: 1px #999999 solid;
+      box-shadow:  1px 1px 1px 1px #999999;
     }
+
+    .el-row {
+      margin: auto;
+    }
+
+    .logoDiv {
+      position: relative;
+      margin-left: 30px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      height: 60px;
+      width: 60px;
+      background-image: url("../../assets/logo.png");
+      background-size: cover;
+    }
+
+    .el-link.el-link--default {
+      font-size: 16px;
+    }
+
+
 </style>
