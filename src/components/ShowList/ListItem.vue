@@ -10,17 +10,6 @@
                 <span>{{imgItem.price}}￥</span>
            </el-link>
       </div>  
-       <!-- <el-card :body-style="{ padding: '0px' }">
-           <div class="imgDiv">
-                <img :src="imgItem.img" class="image" @click="itemClick">
-           </div>
-            <div style="padding: 14px;">
-                <span>{{imgItem.name}}</span>
-                <div class="bottom clearfix">
-                    <time class="time">{{imgItem.price}}￥</time>
-                </div>
-            </div>
-        </el-card> -->
   </div>
   
 </template>
@@ -56,52 +45,26 @@ export default {
 </script>
 
 <style scoped>
-      .time {
-    font-size: 13px;
-    color: #999;
-  }
-  
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  }
-
-
-
 
     .imgItem{
         position: relative;
-        margin-top: -9%;
+        margin-top: -8%;
         margin-left: 10px;
         width: 18%;
         height: 300px;
     }
 
     .imgDiv {
-        float: left;
-        border: 1px solid red;
-        margin: 10px;
         position: relative;
+        float: left;
+
+        border: 1px solid rgb(235, 235, 235);
+        border-radius: 10px 10px 0% 0%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        
+        background-image: url('../../assets/logo.png');
+        background-size: cover;
+        margin: 10px;
         width: 100%;
         height: 50%;
     }
@@ -121,7 +84,9 @@ export default {
 
     .imgInfo{
         position: relative;
-        border-radius: 0% 0% 6% 6%;
+        /* border: 0.5px solid #a9a9a9; */
+        border-radius: 0% 0% 10px 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
         float: left;
         font-size: 18px;
         margin-left: 10px;

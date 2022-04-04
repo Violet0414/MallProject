@@ -138,6 +138,7 @@ export default {
 
   .el-row {
     margin-bottom: 20px;
+    color: black;
   }
   .el-col {
     border-radius: 4px;

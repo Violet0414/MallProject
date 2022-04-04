@@ -24,7 +24,7 @@ export default {
       console.log('specialGoods执行')
        this.$api.specialGoods({
           page,
-          type: 2
+          type: 1
         }).then(res => {
           if(res.status == 200){
             this.imgList = res.data.data

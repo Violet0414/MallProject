@@ -157,13 +157,18 @@ import Dialog from '../components/AddComments.vue'
   
   <style>
     .block {
-      border: 1px solid red;
       margin: 10px;
       left: 65%;
       top: 5%;
       position: absolute;
       width: 30%;
       height: 240px;
+
+      border: 1px solid rgb(235, 235, 235);
+      border-radius: 10px 10px 0% 0%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+      background-image: url('../assets/logo.png');
+      background-size: cover;
     }
 
     .block img {

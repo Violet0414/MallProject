@@ -17,12 +17,7 @@ const { table } = require('console')
 
 
 
-//登录接口
-/**
- * 语法：
- * 如60，"2 days"，"10h"，"7d"，Expiration time，过期时间
- *  jwt.sign({},'秘钥','过期时间,{expiresIn:20*1,'1day''1h'}')
- */
+
 
 // 登录接口
 router.post('/login', (req, res) => {

@@ -14,14 +14,13 @@
       </el-tabs>
 
       <div class="listDiv">
-
-          <GoodsList :imgList="imgList" class="itemDiv"></GoodsList>
-          <MyPage :total="total" :pageSize="pageSize" 
-              @changePage="changePage" class="page" 
-              :current-page="currentPage">
-          </MyPage>
+          <GoodsList :imgList="imgList" class="itemDiv"></GoodsList> 
       </div>
-    </div> 
+        <MyPage :total="total" :pageSize="pageSize" 
+            @changePage="changePage" class="page" 
+            :current-page="currentPage">
+        </MyPage>
+      </div> 
 </template>
   
 <script>
@@ -142,22 +141,20 @@
   .searchDiv {
     display: flex;
     margin-top: 1%;
-
   }
 
   .searchDiv button {
     margin-left: 20px;
     height: 40px;
-    margin-top: 19px;
+    margin-top: 8px;
   }
 
   .listDiv {
-      width: 85%;
-      height: 250px;
-      margin: auto;
-      position: relative;
-      /* margin-top: 20px; */
+    width: 90%;
+    margin: auto;
   }
+
+
 
   .itemDiv {
     margin-top: 8%;

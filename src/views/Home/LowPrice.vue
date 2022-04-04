@@ -26,7 +26,7 @@ export default {
       console.log('specialGoods执行1')
        this.$api.specialGoods({
           page,
-          type: 1
+          type: 0
         }).then(res => {
           console.log(res.data);
           console.log("imgList:", this.imgList)

@@ -68,10 +68,11 @@ export default {
       background-color: #ffffff;
       color: rgb(255, 255, 255);
       text-align: center;
-      /* height: 10%; */
       line-height: 55px;
-      border: 1px #999999 solid;
-      box-shadow:  1px 1px 1px 1px #999999;
+      
+      border: 1px solid rgb(235, 235, 235);
+      border-radius: 10px 10px 10px 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     }
 
     .el-row {
