@@ -57,7 +57,7 @@
               <el-button
                 size="mini"
                 type="warning"
-                @click="changeStatus(scope.$index, scope.row)"
+                @click="changeStatus(scope.$index, scope.row, '配送中')"
                 icon="el-icon-truck"
                 v-show="dType">
                 配送
@@ -65,7 +65,7 @@
               <el-button
                 size="mini"
                 type="success"
-                @click="changeStatus(scope.$index, scope.row)"
+                @click="changeStatus(scope.$index, scope.row, '已完成')"
                 icon="el-icon-check"
                 v-show="sType">
                 完成
@@ -109,8 +109,8 @@
         title: '添加商品',
         rowData:{},     // 当前行的数据对象
 
-        dType: true,
-        sType: null,
+        dType: true,    // 控制配送按钮是否显示
+        sType: null,    // 控制完成按钮是否显示
       }
     },
 
@@ -194,9 +194,9 @@
       },
 
 
-      changeStatus(index, row){
+      changeStatus(index, row, bType){
         console.log('删除', index, row)
-        this.$confirm('此操作将变更该订单状态为配送中, 是否继续?', '提示', {
+        this.$confirm('此操作将变更该订单状态为'+ bType + ', 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

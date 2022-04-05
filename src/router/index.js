@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Header from '../views/Layout/Header.vue'
 import AHeader from '../views/Layout/AHeader.vue'
+import Login from '../components/Login.vue'
 import Home from '../views/Home/Home.vue'
 import EditGoods from '../views/Admin/EditGoods.vue'
 import EditOrder from '../views/Admin/EditOrder.vue'
@@ -17,8 +18,16 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/home',
     component: Header,
+    meta: {
+      isLogin: true
+    },
     children: [
       {
         path: '/home',
@@ -40,19 +49,20 @@ const routes = [
         name: 'cart',
         component: Cart
       },
+      {
+        path: '/goodsDetail/:gid',
+        name: 'goodsDetail',
+        component: GoodsDetail
+      },
     ]
   },
 
   {
-    path: '/goodsDetail/:gid',
-    name: 'goodsDetail',
-    component: GoodsDetail
-  },
-
-  {
-    path: '',
-    name: '',
+    path: '/home',
     component: AHeader,
+    meta: {
+      isLogin: true
+    },
     children: [
       {
         path: '/editGoods',
@@ -66,11 +76,27 @@ const routes = [
       },  
     ]
   },
-  
 ]
 
 const router = new VueRouter({
   routes
+})
+
+
+router.beforeEach((to, from, next) => {
+  console.log('路由守卫', to)
+  
+  if(to.matched.some(ele => ele.meta.isLogin)) {
+    let token = '';
+    if(token) {
+      next()
+    }else{
+      next('/login')
+    }
+  }else{
+    next();
+    console.log('1111111')
+  }
 })
 
 export default router

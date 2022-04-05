@@ -44,7 +44,7 @@
 
 
     created() {
-      console.log('itemInfo:', this.itemInfo)
+      // console.log('itemInfo:', this.itemInfo)
     },
 
     methods: {

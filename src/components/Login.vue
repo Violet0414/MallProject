@@ -1,0 +1,135 @@
+<template>
+  <div class="outDiv">
+    <div class="loginDiv">
+      <div class="imgDiv">
+
+      </div>
+      <el-form 
+      :model="ruleForm" 
+      status-icon 
+      :rules="rules" 
+      ref="ruleForm" 
+      label-width="60px" 
+      class="form">
+        <el-form-item label="账号" prop="uid">
+          <el-input type="text" v-model="ruleForm.uid" autocomplete="off"></el-input>
+        </el-form-item>
+        
+        <el-form-item label="密码" prop="pwd">
+          <el-input type="password" v-model="ruleForm.pwd" autocomplete="off"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script>
+ export default {
+    data() {
+      var validateUser = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入账号'));
+        } else {
+          callback();
+        }
+      };
+      var validatePwd = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          callback();
+        }
+      };
+
+      return {
+        ruleForm: {
+          uid: '',
+          pwd: '',
+        },
+        rules: {
+          uid: [
+            { validator: validateUser, trigger: 'blur' }
+          ],
+          pwd: [
+            { validator: validatePwd, trigger: 'blur' }
+          ],
+        }
+      };
+    },
+
+    methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            console.log('校验通过', this.ruleForm)
+            let {uid, pwd} = this.ruleForm;
+            this.$api.getLogin({
+              uid,
+              pwd
+            }).then(res => {
+              console.log('返回数据：', res.data)
+            })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .outDiv {
+      background-image: url('../assets/item1.jpg');
+      background-size: cover;
+    }
+
+  .loginDiv {
+    width: 470px;
+    height: 320px;
+    margin: 150px auto;
+    border-radius: 15px;
+    border: 1px solid rgb(193, 193, 193);
+    background-color: aliceblue;
+  }
+
+  .imgDiv {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    left: 46%;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(193, 193, 193);
+    border-radius: 100%;
+    background-image: url('../assets/logo.png');
+    background-size: cover;
+    top: 17%
+  }
+
+  .form {
+    position: absolute;
+    top: 39%;
+    left: 35%;
+    /* transform: translate(-50%, -30%); */
+  }
+
+  .el-input {
+    width: 150% !important;
+  }
+
+  .el-button {
+    position: absolute;
+    margin-left: 100%;
+  }
+
+</style>>
+  

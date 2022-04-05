@@ -39,7 +39,7 @@ const base ={
     getCenter: '/api/getCenter',                     // 获取个人信息
     changeMessage: '/api/changeMessage',             // 修改个人信息
 
-    login:'/api/login',                                //登录接口
+    login:'/api/login',                              //登录接口
 }
 
 export default base;

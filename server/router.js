@@ -1,7 +1,11 @@
 const express = require('express')
+
+
 const router = express.Router()
 //导入数据库 sqlFn('sql',[],res=>{})
 const sqlFn = require('./mysql')
+
+
 
 //图片需要的模块
 const multer = require('multer')
@@ -19,19 +23,20 @@ const { table } = require('console')
 
 
 
+
+
 // 登录接口
 router.post('/login', (req, res) => {
-    // console.log(req)
-    let { username, password } = req.body
+    let {uid, pwd} = req.body
     console.log(req.body)
-    console.log(username, password)
+    console.log(uid, pwd)
     //请求数据库
-    let sql = "select * from user where uid=? and pwd=?";
-    let arr = [username, password]
+    let sql = "select * from users where uid=? and pwd=?";
+    let arr = [uid, pwd]
     sqlFn(sql, arr, result => {
         if (result.length > 0) {
             let token = jwt.sign({
-                username: result[0].username,
+                username: result[0].uid,
                 id: result[0].id,
             }, config.jwtSecert, {
                 expiresIn: 20 * 1

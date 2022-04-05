@@ -72,7 +72,7 @@ export default {
           this.total = res.data.total;
           this.pageSize = res.data.pageSize;
         }
-        console.log(res.data);
+        // console.log(res.data);
         // console.log("cartList:", this.cartList)
       })
     },

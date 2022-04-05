@@ -1,12 +1,18 @@
 //搭建express服务
 const express = require('express')
 
-// const bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
 const app = express()
 //post 请求表单数据
-app.use(express.urlencoded({ extended: true }))
+// app.use(express.urlencoded({ extended: true }))
+
+// var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 // app.use(bodyParser.json())
 // app.use(bodyParser.text())
+
 // 全局 中间件  解决所有路由的 跨域问题
 // app.all('*',function (req,res,next) {
 //     res.header('Access-Control-Allow-Origin','*')
