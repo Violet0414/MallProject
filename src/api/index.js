@@ -107,8 +107,16 @@ const api = {
         })
     },
 
+    // 查询订单
     searchOrder(params) {
         return axios.get(base.searchOrder, {
+            params 
+        })
+    },
+
+    // 更改订单状态
+    changeOrder(params) {
+        return axios.get(base.changeOrder, {
             params 
         })
     },

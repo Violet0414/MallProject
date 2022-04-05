@@ -520,6 +520,26 @@ router.get('/searchOrder', (req, res) => {
     })
 })
 
+// 变更订单状态
+router.get("/changeOrder", (req, res) => {
+    var oid = req.query.oid;
+    var sql = "update orders set type = type + 1 where oid = " + oid;
+    sqlFn(sql, null, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "修改成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "修改失败"
+            })
+        }
+    })
+})
+
+
 
 
 

@@ -6,11 +6,11 @@
       <el-button type="primary">查询</el-button>
     </div>
 
-      <el-tabs v-model="activeName" @tab-click="cHandleClick">
-        <el-tab-pane label="待处理" name="待处理"></el-tab-pane>
-        <el-tab-pane label="配送中" name="配送中"></el-tab-pane>
-        <el-tab-pane label="已完成" name="已完成"></el-tab-pane>
-      </el-tabs>
+    <el-tabs v-model="activeName" @tab-click="cHandleClick">
+      <el-tab-pane label="待处理" name="待处理"></el-tab-pane>
+      <el-tab-pane label="配送中" name="配送中"></el-tab-pane>
+      <el-tab-pane label="已完成" name="已完成"></el-tab-pane>
+    </el-tabs>
 
       
     <!-- 表单区域 -->
@@ -23,7 +23,7 @@
       <el-table-column
         prop="oid"
         label="编号"
-        width="110">
+        width="60">
       </el-table-column>
       <el-table-column
         prop="uid"
@@ -33,17 +33,17 @@
       <el-table-column
         prop="detail"
         label="清单"
-        width="300">
+        width="450">
       </el-table-column>
       <el-table-column
         prop="price"
         label="总价"
-        width="80">
+        width="90">
       </el-table-column>
       <el-table-column
         prop="address"
         label="地址"
-        width="180">
+        width="220">
       </el-table-column>
       <el-table-column
         prop="time"
@@ -52,11 +52,23 @@
       </el-table-column>
       <el-table-column
         label="操作"
-        width="260">
+        width="240">
             <template slot-scope="scope">
-              <el-button size="mini" 
-                @click="handleDetail(scope.$index, scope.row)">
-                查看
+              <el-button
+                size="mini"
+                type="warning"
+                @click="changeStatus(scope.$index, scope.row)"
+                icon="el-icon-truck"
+                v-show="dType">
+                配送
+              </el-button>
+              <el-button
+                size="mini"
+                type="success"
+                @click="changeStatus(scope.$index, scope.row)"
+                icon="el-icon-check"
+                v-show="sType">
+                完成
               </el-button>
               <el-button
                 size="mini"
@@ -76,9 +88,7 @@
 
 
 <script>
-  import MyPage from '../../components/MyPage.vue'
-  // import Dialog from './AddGoods.vue'
-  
+  import MyPage from '../../components/MyPage.vue'  
 
   export default {
     components: {
@@ -98,6 +108,9 @@
         type: 0,
         title: '添加商品',
         rowData:{},     // 当前行的数据对象
+
+        dType: true,
+        sType: null,
       }
     },
 
@@ -156,12 +169,18 @@
       cHandleClick() {
         if(this.activeName === '待处理'){
           this.type = 0
+          this.dType = true
+          this.sType = false
           this.showOrders(1, this.type)
         }else if(this.activeName === '配送中'){
           this.type = 1
+          this.dType = false
+          this.sType = true
           this.showOrders(1, this.type)
         }else if(this.activeName === '已完成'){
           this.type = 2
+          this.dType = false
+          this.sType = false
           this.showOrders(1, this.type)
         }
       },
@@ -175,13 +194,30 @@
       },
 
 
-      // 查看详情操作
-      handleDetail(index, row) {
-        this.rowData = row;
-        let routeData = this.$router.resolve({
-            path: '/GoodsDetail/' + this.rowData.gid,
-        })
-        window.open(routeData.href, '_blank')
+      changeStatus(index, row){
+        console.log('删除', index, row)
+        this.$confirm('此操作将变更该订单状态为配送中, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$api.changeOrder({
+            oid: row.oid
+          }).then(res => {
+            if(res.data.status === 200) {
+                this.$message({
+                type: 'success',
+                message: '变更成功'
+              })
+              this.showOrders(1, this.type)                  // 更新视图
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });          
+        });
       },
 
 
@@ -240,7 +276,7 @@
     } 
 
   .form{
-    left: 5%;
+    left: 1%;
   }
 
   .page {
