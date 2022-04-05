@@ -408,8 +408,7 @@ router.get("/delCart", (req, res) => {
     var uid = req.query.uid;
     var gid = req.query.gid;
     const sql = "delete from cart where uid=" + uid + " and gid in(" + gid + ")"
-    var arr = [uid, gid];
-    sqlFn(sql, arr, result => {
+    sqlFn(sql, null, result => {
         console.log(sql)
         if (result.affectedRows > 0) {
             res.send({
@@ -431,12 +430,11 @@ router.get("/delCart", (req, res) => {
 router.get("/addOrder", (req, res) => {        
     var uid = req.query.uid;
     var detail = req.query.detail;
-    var prcie = req.query.prcie;
+    var prcie = req.query.prcie  + '￥';
     var address = req.query.address;
     var time = new Date();
     const sql = "insert into orders values (null,?,?,?,?,?)"
-    var arr = [uid, detail, prcie, address, time.toLocaleDateString()];
-    console.log('=++==++=', time.toLocaleDateString())
+    var arr = [uid, detail, prcie, address, time.toLocaleDateString()]
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
             res.send({
@@ -455,7 +453,8 @@ router.get("/addOrder", (req, res) => {
 // 管理员获取订单列表
 router.get("/showOrders", (req, res) => {
     const page = req.query.page || 1;
-    const sql = "select * from orders order by oid asc limit 12 offset " + (page - 1) * 12
+    const type = req.query.type;
+    const sql = "select * from orders where type = " + type + " order by oid asc limit 12 offset " + (page - 1) * 12
     sqlFn(sql, null, (result) => {
         const len = result.length;
         if (result.length > 0) {
@@ -471,6 +470,53 @@ router.get("/showOrders", (req, res) => {
                 msg: "暂无数据"
             })
         }
+    })
+})
+
+// 删除订单
+router.get("/delOrder", (req, res) => {
+    var oid = req.query.oid;
+    const sql = "delete from orders where oid =" + oid
+    sqlFn(sql, null, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "删除成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "删除失败"
+            })
+        }
+    })
+})
+
+// 搜索订单
+router.get('/searchOrder', (req, res) => {
+    const page = req.query.page || 1;
+    var search = req.query.search;
+    const sqlLen = "select * from orders where concat(`oid`, `uid`) like '%" + search + "%'";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = 
+        "select * from orders where concat(`oid`, `uid`) like '%" + search 
+        + "%' order by oid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
     })
 })
 

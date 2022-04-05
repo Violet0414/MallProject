@@ -100,6 +100,19 @@ const api = {
         })
     },
 
+    // 管理员删除订单
+    delOrder(params) {
+        return axios.get(base.delOrder, {
+            params 
+        })
+    },
+
+    searchOrder(params) {
+        return axios.get(base.searchOrder, {
+            params 
+        })
+    },
+
 // =================================== 商品部分 ===================================
 
     // 商品详情

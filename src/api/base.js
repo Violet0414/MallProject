@@ -27,6 +27,8 @@ const base ={
 // ============================================================================================
     addOrder: '/api/addOrder',                      // 结算生成订单
     showOrders: '/api/showOrders',                  // 管理员展示订单列表
+    delOrder: '/api/delOrder',                      // 管理员删除订单
+    searchOrder: '/api/searchOrder',                // 查询订单
 
     
 
