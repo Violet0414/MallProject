@@ -18,6 +18,10 @@
         <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="linkCenter">个人中心</el-link>
         </div></el-col>
+        <div class="userDiv">
+          您好，{{userinfo.name}}
+          <li class="el-icon-switch-button" @click="exit"></li>
+        </div>
       </el-row>
       <router-view></router-view>
     </div>
@@ -25,8 +29,14 @@
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+
 export default {
     name: 'Header',
+    computed: {
+      ...mapState('loginModule', ['userinfo'])
+
+    },
 
     data() {
         return {
@@ -39,6 +49,15 @@ export default {
     },
 
     methods: {
+      ...mapMutations('loginModule', ['clearUser']),
+      exit() {
+        console.log('退出');
+        // 情况vuex和本地数据，跳转至登录界面
+        this.clearUser();
+        localStorage.removeItem('user')
+        this.$router.push('/login')
+      },
+
       linkHome() {
         console.log('首页被点击')
         this.$router.push('/home')
@@ -73,6 +92,13 @@ export default {
       border: 1px solid rgb(235, 235, 235);
       border-radius: 10px 10px 10px 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    }
+
+    .userDiv {
+      position: absolute;
+      color: black;
+      right: 5%;
+      top: 5%;
     }
 
     .el-row {

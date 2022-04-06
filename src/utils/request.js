@@ -4,6 +4,7 @@
 import axios from 'axios'
 import qs from 'querystring'
 
+
 /**
  * 错误函数 解析常用的http状态码
  * 2xx：成功
@@ -47,12 +48,11 @@ const install = axios.create({
 
 
 //拦截器 
-// 添加请求拦截器
 install.interceptors.request.use(function (config) {
     console.log('触发请求拦截器',config);
     //处理post请求发送的参数格式
     if(config.method==='post'){
-        config.data = qs.stringify(config.data)//{} 转 xx=xx&xx=xx 
+        config.data = qs.stringify(config.data)
         console.log(config.data)
     }
     //配置请求token 
@@ -76,7 +76,6 @@ install.interceptors.response.use(
     error=>{
         console.log('响应拦截器错误',error);
         let { response } = error;
-        // 对响应错误做点什么
         ErrorHandle(response.status,response.info)
   });
 

@@ -41,7 +41,7 @@
                 </el-form-item>
 
 
-                <el-form-item label="上传头像">
+                <el-form-item label="上传图片">
 
                     <UploadImg @sendImg = 'sendImg'></UploadImg>
                     

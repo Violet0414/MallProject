@@ -83,11 +83,15 @@ const router = new VueRouter({
 })
 
 
+// 获取vuex数据
+import store from '../store/index'
+
 router.beforeEach((to, from, next) => {
   console.log('路由守卫', to)
   
   if(to.matched.some(ele => ele.meta.isLogin)) {
-    let token = '';
+    // 判断当前用户是否登录
+    let token = store.state.loginModule.userinfo.token;
     if(token) {
       next()
     }else{

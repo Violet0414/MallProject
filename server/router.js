@@ -1,5 +1,8 @@
 const express = require('express')
-
+const app = express()
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 const router = express.Router()
 //导入数据库 sqlFn('sql',[],res=>{})
@@ -22,9 +25,6 @@ const { table } = require('console')
 
 
 
-
-
-
 // 登录接口
 router.post('/login', (req, res) => {
     let {uid, pwd} = req.body
@@ -36,8 +36,8 @@ router.post('/login', (req, res) => {
     sqlFn(sql, arr, result => {
         if (result.length > 0) {
             let token = jwt.sign({
-                username: result[0].uid,
-                id: result[0].id,
+                uid: result[0].uid,
+                name: result[0].name,
             }, config.jwtSecert, {
                 expiresIn: 20 * 1
             })

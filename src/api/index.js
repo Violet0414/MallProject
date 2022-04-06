@@ -11,6 +11,7 @@ import axios from '../utils/request'
 
 
 
+
 //axios接口配置基础地址
 axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 //http://localhost:8888 
@@ -18,8 +19,7 @@ axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 const api = {
     // 登录接口
     getLogin(params) {
-        console.log('进入登录接口', params,  qs.stringify(params))
-        return axios.post(base.login, qs.stringify(params))
+        return axios.post(base.login, params)
     },
 
     // 获取个人信息
