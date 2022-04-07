@@ -3,8 +3,7 @@
       <!-- 绑定数据 -->
       <ListItem v-for="item in commentList" :key="item.id" :cItem="item"></ListItem>    
     </div>
-    
-  </template>
+</template>
   
   <script>
   import ListItem from './CommentItem.vue'

@@ -126,7 +126,7 @@
 
 </script>
   
-<style>
+<style scoped>
   .el-tabs__item {
     font-size: 10px !important;
     /* margin-left: 7% !important; */

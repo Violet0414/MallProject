@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .delBtn {
     position: absolute;
     margin-left: 95%;

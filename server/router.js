@@ -18,7 +18,7 @@ const fs = require('fs')
 const jwt = require('jsonwebtoken');
 // config.jwtSecert
 const config = require('./secert')
-const { table } = require('console')
+// const { table } = require('console')
 // //导入mockjs 
 // const Mock = require('mockjs');
 
@@ -27,11 +27,13 @@ const { table } = require('console')
 
 // 登录接口
 router.post('/login', (req, res) => {
-    let {uid, pwd} = req.body
-    console.log(req.body)
-    console.log(uid, pwd)
-    //请求数据库
-    let sql = "select * from users where uid=? and pwd=?";
+    let {uid, pwd, type} = req.body
+    let sql = ''
+    if(type == 1){
+        sql = "select * from admin where aid=? and pwd=?"
+    }else{
+        sql = "select * from users where uid=? and pwd=?";
+    }
     let arr = [uid, pwd]
     sqlFn(sql, arr, result => {
         if (result.length > 0) {
@@ -56,22 +58,30 @@ router.post('/login', (req, res) => {
 
 
 // 注册接口
-router.post("/register", (req, res) => {
-    const {
-        username,
-        password
-    } = req.body;
-    const sql = "insert into user values(uid,pwd,name)";
-    const arr = [username, password];
-    sqlFn(sql, arr, (result) => {
-        if (result.affectedRows > 0) {
+router.get("/register", (req, res) => {
+    const {uid, pwd, name, sex, address, phone} = req.query;
+    let sql = "select uid from users where uid = " + uid;
+    sqlFn(sql, null, result => {
+        if (result.length > 0) {
             res.send({
-                msg: "注册成功",
-                status: 200
+                msg: "失败",
+                status: 500
             })
-        } else {
-            res.status(401).json({
-                errors: "用户名密码错误"
+        }else{
+            sql = "insert into users values (?, ?, ?, ?, ?, ?)";
+            const arr = [uid, pwd, name, sex, address, phone];
+            sqlFn(sql, arr, (result) => {
+                if (result.affectedRows > 0) {
+                    res.send({
+                        msg: "注册成功",
+                        status: 200
+                    })
+                } else {
+                    res.send({
+                        msg: "失败",
+                        status: 500
+                    })
+                }
             })
         }
     })
@@ -262,7 +272,7 @@ router.get('/changeMessage', (req, res) => {
     var column = req.query.column;
     var message = req.query.message
     console.log('column:',column)
-    console.log('message:',message)
+    console.log('uid:',uid)
     const sql = "UPDATE " + tableName + " SET " + column + " = '" + message + "' WHERE uid =" + uid 
     console.log(sql)
     sqlFn(sql, null, result => {
@@ -438,7 +448,7 @@ router.get("/addOrder", (req, res) => {
     var prcie = req.query.prcie  + '￥';
     var address = req.query.address;
     var time = new Date();
-    const sql = "insert into orders values (null,?,?,?,?,?)"
+    const sql = "insert into orders values (null,?,?,?,?,?,'0')"
     var arr = [uid, detail, prcie, address, time.toLocaleDateString()]
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {

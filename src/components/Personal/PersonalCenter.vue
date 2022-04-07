@@ -128,7 +128,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .outside {
     position: absolute;
     margin-top: 5px;

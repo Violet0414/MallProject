@@ -69,8 +69,10 @@
 
 <script>
 
+import store from '../../store/index'
 
 export default {
+    inject: ['reload'],
     props: [
         'nDialog',
         'sDialog',
@@ -118,7 +120,6 @@ export default {
       },
 
       submitMessage(formName, tableName, column, message) {
-        console.log('message:', message) 
         this.$refs[formName].validate((valid) => {
           if (valid) {
             console.log('进入提交阶段')
@@ -126,106 +127,17 @@ export default {
               tableName: tableName,
               column,
               message,
-              uid: 666
+              uid: store.state.loginModule.userinfo.uid,
             })
             .then((res) => {
               if(res.status == 200){
-                alert('修改成功');       
+                this.$message({
+                    message: '修改成功',
+                    type: 'success'
+                });         
                 setTimeout(() => {
-                  history.go(0)
-                }, 1000);
-              }
-            }) 
-          } else {
-            console.log('修改失败');
-            return false;
-          }
-        });
-      },
-
-      submitSex(formName, tableName) {
-        this.$refs[formName].validate((valid) => {
-          let message = this.ruleForm.sex;
-          if (valid) {
-            this.$api.changeMessage({
-              tableName: tableName,
-              column: 'sex',
-              message,
-              number: 6
-            })
-            .then((res) => {
-              if(res.status == 200){
-                alert('修改成功');       
-                history.go(0)
-              }
-            }) 
-          } else {
-            console.log('修改失败');
-            return false;
-          }
-        });
-      },
-
-      submitAddress(formName, tableName) {
-        this.$refs[formName].validate((valid) => {
-          let message = this.ruleForm.faculty;
-          if (valid) {
-            this.$api.changeMessage({
-              tableName: tableName,
-              column: 'faculty',
-              message,
-              number: 6
-            })
-            .then((res) => {
-              if(res.status == 200){
-                alert('修改成功');       
-                history.go(0)
-              }
-            }) 
-          } else {
-            console.log('修改失败');
-            return false;
-          }
-        });
-      },
-
-      submitPhone(formName, tableName) {
-        this.$refs[formName].validate((valid) => {
-          let message = this.ruleForm.phone;
-          if (valid) {
-            this.$api.changeMessage({
-              tableName: tableName,
-              column: 'phone',
-              message,
-              number: 6
-            })
-            .then((res) => {
-              if(res.status == 200){
-                alert('修改成功');       
-                history.go(0)
-              }
-            }) 
-          } else {
-            console.log('修改失败');
-            return false;
-          }
-        });
-      },
-
-      submitEmail(formName, tableName) {
-        this.$refs[formName].validate((valid) => {
-          let message = this.ruleForm.email;
-          if (valid) {
-            this.$api.changeMessage({
-              tableName: tableName,
-              column: 'email',
-              message,
-              number: 6
-            })
-            .then((res) => {
-              if(res.status == 200){
-                alert('修改成功');       
-                history.go(0)
+                  this.reload()
+                }, 700);
               }
             }) 
           } else {
@@ -239,7 +151,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .el-upload {
     float: left;
     margin-left: 50px;

@@ -1,8 +1,8 @@
 <template>
   <div class="outDiv">
+
     <div class="loginDiv">
       <div class="imgDiv">
-
       </div>
       <el-form 
       :model="ruleForm" 
@@ -18,21 +18,31 @@
         <el-form-item label="密码" prop="pwd">
           <el-input type="password" v-model="ruleForm.pwd" autocomplete="off"></el-input>
         </el-form-item>
-
+        <div class="radioDiv">
+          <el-radio v-model="type" label="0">用户登录</el-radio>
+          <el-radio v-model="type" label="1">管理员登录</el-radio>
+        </div>
+        <Dialog ref="dialog"></Dialog>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <el-button class="regBtn" type="warning" @click="register()">注册</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
+    
   </div>
 </template>
 
 <script>
 import jwt from 'jwt-decode';
 import {mapMutations} from 'vuex'
+import Dialog from './register.vue'
 
  export default {
+   components: {
+     Dialog,
+   },
     data() {
       var validateUser = (rule, value, callback) => {
         if (value === '') {
@@ -50,6 +60,7 @@ import {mapMutations} from 'vuex'
       };
 
       return {
+        type: null,        // 登录人员身份控制
         ruleForm: {
           uid: '',
           pwd: '',
@@ -66,6 +77,10 @@ import {mapMutations} from 'vuex'
     },
 
     methods: {
+      register() {
+        this.$refs.dialog.dialogVisible = true;
+      },
+
       ...mapMutations('loginModule', ['setUser']),
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -74,7 +89,8 @@ import {mapMutations} from 'vuex'
             let {uid, pwd} = this.ruleForm;
             this.$api.getLogin({
               uid,
-              pwd
+              pwd,
+              type: this.type
             }).then(res => {
               console.log('返回数据：', res.data)
               if(res.data.status === 200){
@@ -89,7 +105,11 @@ import {mapMutations} from 'vuex'
                 this.setUser(obj)
                 // 存储至本地
                 localStorage.setItem('user', JSON.stringify(obj))
-                this.$router.push('/home')
+                if(this.type == 1) {
+                  this.$router.push('/editOrder')
+                }else{
+                  this.$router.push('/home')
+                }
               }else{
                 this.$message({
                   type: 'error',
@@ -111,9 +131,12 @@ import {mapMutations} from 'vuex'
 </script>
 
 <style scoped>
+
   .outDiv {
       background-image: url('../assets/item1.jpg');
       background-size: cover;
+      overflow: hidden;
+      height: 100%;
     }
 
   .loginDiv {
@@ -140,9 +163,15 @@ import {mapMutations} from 'vuex'
 
   .form {
     position: absolute;
-    top: 39%;
+    top: 35%;
     left: 35%;
     /* transform: translate(-50%, -30%); */
+  }
+
+  .radioDiv {
+    position: relative;
+    padding-bottom: 7%;
+    left: 37%;
   }
 
   .el-input {
@@ -152,6 +181,11 @@ import {mapMutations} from 'vuex'
   .el-button {
     position: absolute;
     margin-left: 100%;
+  }
+
+  .regBtn {
+    position: absolute !important;
+    left: 47.5%;
   }
 
 </style>>

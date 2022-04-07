@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .el-pagination{
         position:relative;  
         top: -45%;

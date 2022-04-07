@@ -17,6 +17,7 @@
 <script>
 import CartList from './CartList'
 import MyPage from '../../components/MyPage.vue'
+import store from '../../store/index'
 
 export default {
   name: 'Cart',
@@ -65,15 +66,13 @@ export default {
     getCart(page) {
       this.$api.getCart({
         page,
-        uid: 666
+        uid: store.state.loginModule.userinfo.uid
       }).then(res => {
         if(res.status == 200){
           this.cartList = res.data.data
           this.total = res.data.total;
           this.pageSize = res.data.pageSize;
         }
-        // console.log(res.data);
-        // console.log("cartList:", this.cartList)
       })
     },
 
@@ -95,13 +94,12 @@ export default {
 
     // 购物车结算事件
     settlement() {
-      console.log('结算')
       console.log('结算ID:', this.idList)
       console.log('结算清单:', this.totalNum, this.totalPrice)
       console.log('======')
       
       this.$api.addOrder({
-        uid: 666,
+        uid: store.state.loginModule.userinfo.uid,
         address: '测试地址',
 
         gid: this.idList,
@@ -112,7 +110,7 @@ export default {
       if(res.status == 200){
           console.log('订单生成完毕')
           this.$api.delCart({
-            uid: 666,
+            uid: store.state.loginModule.userinfo.uid,
             gid: this.idList,
           }).then((res) => {
             if(res.status == 200){

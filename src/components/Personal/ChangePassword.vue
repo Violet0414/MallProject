@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import store from '../../store/index'
+
   export default {
     data() {
       return {
@@ -53,10 +55,13 @@
       }
     },
 
+    created() {
+
+    },
+
 
     methods: {
-      onSubmit(formName, tableName, column, message) {
-        console.log('message:', message)
+      onSubmit(formName, tableName, column, message) { 
         if (this.form.npwd === this.form.cpwd) {
             this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -65,7 +70,7 @@
                 tableName: 'users',
                 column,
                 message,
-                uid: 666
+                uid: store.state.loginModule.userinfo.uid,
                 })
                 .then((res) => {
                   if(res.status == 200){
@@ -73,6 +78,7 @@
                         message: '修改成功',
                         type: 'success'
                     });      
+                    this.$router.push('/login')
                   }
                 }) 
                 } else {
@@ -94,7 +100,7 @@
 }
 </script>
 
-<style>
+<style scoped>
     .formDiv {
         width: 90%;
     }

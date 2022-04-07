@@ -22,6 +22,13 @@ const api = {
         return axios.post(base.login, params)
     },
 
+    // 注册接口
+    register(params) {
+        return axios.get(base.register, {
+            params
+        })
+    },
+
     // 获取个人信息
     getCenter(params) {
         return axios.get(base.getCenter, {
@@ -32,6 +39,7 @@ const api = {
     
     // 修改个人信息
     changeMessage(params) {
+        console.log('parmas:',params)
         return axios.get(base.changeMessage, {
             params 
         })

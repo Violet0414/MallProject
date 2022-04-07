@@ -19,8 +19,9 @@
           <el-link @click="linkCenter">个人中心</el-link>
         </div></el-col>
         <div class="userDiv">
+          <div class="uImg"></div>
           您好，{{userinfo.name}}
-          <li class="el-icon-switch-button" @click="exit"></li>
+          <li class="el-icon-switch-button" @click="exit" style="margin-left: 5px"></li>
         </div>
       </el-row>
       <router-view></router-view>
@@ -34,8 +35,7 @@ import {mapState, mapMutations} from 'vuex'
 export default {
     name: 'Header',
     computed: {
-      ...mapState('loginModule', ['userinfo'])
-
+      ...mapState('loginModule', ['userinfo'])   
     },
 
     data() {
@@ -52,10 +52,21 @@ export default {
       ...mapMutations('loginModule', ['clearUser']),
       exit() {
         console.log('退出');
-        // 情况vuex和本地数据，跳转至登录界面
-        this.clearUser();
-        localStorage.removeItem('user')
-        this.$router.push('/login')
+         this.$confirm('是否退出系统？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // 情况vuex和本地数据，跳转至登录界面
+          this.clearUser();
+          localStorage.removeItem('user')
+          this.$router.push('/login')
+        }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+          }); 
+        })
       },
 
       linkHome() {
@@ -99,6 +110,19 @@ export default {
       color: black;
       right: 5%;
       top: 5%;
+    }
+
+    .uImg {
+      position: relative;
+      float: left;
+      margin-top: 8%;
+      right: 5%;
+      height: 30px;
+      width: 30px;
+      background-image: url('../../assets/user.png');
+      background-size: cover;
+      border-radius: 100%;
+      /* border: 1px solid; */
     }
 
     .el-row {

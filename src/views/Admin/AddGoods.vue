@@ -150,10 +150,6 @@ export default {
         this.imgUrl = val
       },
 
-      showImg() {
-        
-      },
-
 
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

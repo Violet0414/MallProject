@@ -1,18 +1,23 @@
 <template>
   <div>
-      <PersonalCenter  :userData="userData" :tableName="tableName"></PersonalCenter>
-      <!-- <Upload></Upload> -->
+      <PersonalCenter  :userData="userData" :tableName="tableName"></PersonalCenter> 
   </div>
 </template>
 
 <script>
 import PersonalCenter from '../../components/Personal/PersonalCenter'
+import store from '../../store/index'
 
 export default {
     components: {
         PersonalCenter,
-        // Upload,
+
     },
+
+
+      
+
+
     data() {
         return {
             userData: [],
@@ -26,10 +31,11 @@ export default {
     },
 
     methods: {
+      
       // 分页, 绑定信息
       http(){
         this.$api.getCenter({
-          uid: 666,
+          uid: store.state.loginModule.userinfo.uid,
         }).then(res => {
           console.log('res.data:', res.data);
           if(res.status == 200){

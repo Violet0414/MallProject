@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ouDiv">
       <h2>{{goodsData.name}}</h2>
         <el-row :gutter="20">
           <el-col :span="2"><div class="grid-content bg-purple">价格：{{goodsData.price}}</div></el-col>
@@ -36,6 +36,7 @@
 <script>
 import CommentList from '../components/CommentList/CommentList.vue'
 import Dialog from '../components/AddComments.vue'
+import store from '../store/index'
   
   export default {
       components: {
@@ -102,7 +103,7 @@ import Dialog from '../components/AddComments.vue'
         addCart() {
           if(this.btnStatus) {
             let gid = this.gid
-            let uid = '666'
+            let uid = store.state.loginModule.userinfo.uid
             let gname = this.goodsData.name
             let imgUrl = this.imgUrl
             console.log('传入的goodsData.name为:', this.goodsData.name)
@@ -155,7 +156,14 @@ import Dialog from '../components/AddComments.vue'
   }
   </script>
   
-  <style>
+  <style scoped>
+    .ouDiv {
+      width: 100%;
+      position:absolute;
+      color: #000;
+      text-align: left;
+    }
+
     .block {
       margin: 10px;
       left: 65%;

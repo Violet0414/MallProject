@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .test {
     position: absolute;
     background-image: url('../../assets/test.png');
