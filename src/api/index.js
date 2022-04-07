@@ -117,6 +117,12 @@ const api = {
         })
     },
 
+    myOrders(params) {
+        return axios.get(base.myOrders, {
+            params 
+        })
+    },
+
     // 查询订单
     searchOrder(params) {
         return axios.get(base.searchOrder, {

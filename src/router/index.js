@@ -12,6 +12,7 @@ const Center = () => import('../views/Center/Center.vue')
 const GoodsDetail = () => import('../components/GoodsDetail.vue')
 const GoodsList = () => import('../views/GoodsList/GoodsList.vue')
 const Cart = () => import('../views/Cart/Cart.vue')
+const MyOrders = () => import('../views/Cart/myOrders.vue')
 
 
 Vue.use(VueRouter)
@@ -53,6 +54,11 @@ const routes = [
         path: '/goodsDetail/:gid',
         name: 'goodsDetail',
         component: GoodsDetail
+      },
+      {
+        path: '/myOrders',
+        name: 'myOrders',
+        component: MyOrders
       },
     ]
   },

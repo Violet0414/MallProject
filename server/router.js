@@ -488,6 +488,30 @@ router.get("/showOrders", (req, res) => {
     })
 })
 
+// 获取个人订单列表
+router.get("/myOrders", (req, res) => {
+    const page = req.query.page || 1;
+    const uid = req.query.uid;
+    const type = req.query.type;
+    const sql = "select * from orders where uid =" + uid + " and type = " + type + " order by oid asc limit 12 offset " + (page - 1) * 12
+    sqlFn(sql, null, (result) => {
+        const len = result.length;
+        if (result.length > 0) {
+            res.send({
+                status: 200,
+                data: result,
+                pageSize: 12,
+                total: len
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "暂无数据"
+            })
+        }
+    })
+})
+
 // 删除订单
 router.get("/delOrder", (req, res) => {
     var oid = req.query.oid;
@@ -515,7 +539,7 @@ router.get('/searchOrder', (req, res) => {
     sqlFn(sqlLen, null, data => {
         let len = data.length;
         const sql = 
-        "select * from orders where concat(`oid`, `uid`) like '%" + search 
+        "select * from orders where concat(`oid`, `uid`, `detail`) like '%" + search 
         + "%' order by oid asc limit 10 offset " + (page - 1) * 10;
         sqlFn(sql, null, result => {
             if (result.length > 0) {

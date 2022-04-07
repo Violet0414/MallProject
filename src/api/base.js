@@ -30,6 +30,7 @@ const base ={
     delOrder: '/api/delOrder',                      // 管理员删除订单
     searchOrder: '/api/searchOrder',                // 查询订单
     changeOrder: '/api/changeOrder',                // 更改订单状态
+    myOrders: '/api/myOrders',                      // 获取个人订单
 
     
 

@@ -2,9 +2,10 @@
   <div class="outDiv">
     <!-- 搜索栏区域 -->
     <div class="header">
-      <el-input placeholder="请输入您所要查询的订单" 
-      @change="searchInput" v-model="input" clearable style="margin-right: 10px;"></el-input>
-      <el-button class="sbtn" type="primary">查询</el-button>
+      <el-input placeholder="请输入您所要查询的订单" @change="searchInput" 
+      v-model="input" clearable style="margin-right: 10px;">
+      </el-input>
+      <el-button type="primary">查询</el-button>
     </div>
 
     <el-tabs v-model="activeName" @tab-click="cHandleClick">
@@ -53,29 +54,14 @@
       </el-table-column>
       <el-table-column
         label="操作"
-        width="240">
+        width="120">
             <template slot-scope="scope">
-              <el-button
-                size="mini"
-                type="warning"
-                @click="changeStatus(scope.$index, scope.row, '配送中')"
-                icon="el-icon-truck"
-                v-show="dType">
-                配送
-              </el-button>
-              <el-button
-                size="mini"
-                type="success"
-                @click="changeStatus(scope.$index, scope.row, '已完成')"
-                icon="el-icon-check"
-                v-show="sType">
-                完成
-              </el-button>
               <el-button
                 size="mini"
                 type="danger"
                 @click="handleDelete(scope.$index, scope.row)"
-                icon="el-icon-delete">
+                icon="el-icon-delete"
+                v-show="dType">
                 删除
               </el-button>
             </template>
@@ -89,7 +75,8 @@
 
 
 <script>
-  import MyPage from '../../components/MyPage.vue'  
+  import MyPage from '../../components/MyPage.vue'
+  import store from '../../store/index'  
 
   export default {
     components: {
@@ -107,19 +94,18 @@
         dialogVisible: false,
         currentPage: 1, // 页面改变时的变量
         type: 0,
-        title: '添加商品',
         rowData:{},     // 当前行的数据对象
 
-        dType: true,    // 控制配送按钮是否显示
-        sType: null,    // 控制完成按钮是否显示
+        dType: false,   // 控制删除按钮是否显示
       }
     },
 
     methods: {
-      showOrders(page, type) {
-        console.log('showOrders执行=================')
-         this.$api.showOrders({
+      myOrders(page, type) {
+        console.log('myOrders执行=================')
+         this.$api.myOrders({
             page,
+            uid: store.state.loginModule.userinfo.uid,
             type,        // 查询待处理订单
           }).then(res => {
             console.log(res.data);
@@ -136,7 +122,7 @@
       // 通过输入查询
       searchInput(val){
        if (!val) {
-        this.showOrders(1, this.type);
+        this.myOrders(1, this.type);
         this.currentPage = 1;
         return;
       }
@@ -159,30 +145,20 @@
       },
 
 
-      // 改变传入的type值。调用输入查询方法
-      getSearch(val) {
-        this.type = 'name'
-        this.searchInput(val)
-      },
-
-
       // 类别查询
       cHandleClick() {
         if(this.activeName === '待处理'){
           this.type = 0
-          this.dType = true
-          this.sType = false
-          this.showOrders(1, this.type)
+          this.dType = false
+          this.myOrders(1, this.type)
         }else if(this.activeName === '配送中'){
           this.type = 1
           this.dType = false
-          this.sType = true
-          this.showOrders(1, this.type)
+          this.myOrders(1, this.type)
         }else if(this.activeName === '已完成'){
           this.type = 2
-          this.dType = false
-          this.sType = false
-          this.showOrders(1, this.type)
+          this.dType = true
+          this.myOrders(1, this.type)
         }
       },
 
@@ -191,34 +167,7 @@
       changePage(num) {
           this.currentPage = num
           this.pageSize = this.pageSize;
-          this.showOrders(num, this.type);                //列表分页
-      },
-
-
-      changeStatus(index, row, bType){
-        console.log('删除', index, row)
-        this.$confirm('此操作将变更该订单状态为'+ bType + ', 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$api.changeOrder({
-            oid: row.oid
-          }).then(res => {
-            if(res.data.status === 200) {
-                this.$message({
-                type: 'success',
-                message: '变更成功'
-              })
-              this.showOrders(1, this.type)                  // 更新视图
-            }
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });          
-        });
+          this.myOrders(num, this.type);                //列表分页
       },
 
 
@@ -238,7 +187,7 @@
                 type: 'success',
                 message: '删除成功'
               })
-              this.showOrders(1, this.type)                  // 更新视图
+              this.myOrders(1, this.type)                  // 更新视图
             }
           })
         }).catch(() => {
@@ -252,7 +201,8 @@
     },
 
     created() {
-      this.showOrders(1, this.type)
+      console.log('dType:', this.dType)
+      this.myOrders(1, this.type)
     }
   }
 
@@ -272,13 +222,14 @@
     margin: 20px;
   }
 
-  .sbtn {
+  .header button {
+      /* margin-left: 30px; */
       margin: auto;
       height: 30%;
-  } 
+    } 
 
   .form{
-    left: 1%;
+    left: 5%;
   }
 
   .page {

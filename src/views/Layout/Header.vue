@@ -16,6 +16,9 @@
           <el-link @click="linkCart">购物车</el-link>
         </div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
+          <el-link @click="linkOrders">订单</el-link>
+        </div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="linkCenter">个人中心</el-link>
         </div></el-col>
         <div class="userDiv">
@@ -87,6 +90,11 @@ export default {
       linkCart() {
         console.log('购物车被点击')
         this.$router.push('/cart')
+      },
+
+      linkOrders() {
+        console.log('订单被点击')
+        this.$router.push('/myOrders')
       }
     }
 };
