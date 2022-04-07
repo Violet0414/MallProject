@@ -1,4 +1,4 @@
-# edu-system
+# Mall-System
 
 ## Project setup
 ```

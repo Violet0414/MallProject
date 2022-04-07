@@ -175,6 +175,7 @@ export default {
     right: 20%;
   }
 
+
   .tBtn {
     position: absolute;
     top: 15%;
