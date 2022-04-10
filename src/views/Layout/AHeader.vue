@@ -11,10 +11,16 @@
           <el-link @click="linkHome">首页</el-link>
         </div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
+          <el-link @click="editUsers">用户列表</el-link>
+        </div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="editGoods">商品管理</el-link>
         </div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="editOrder">订单管理</el-link>
+        </div></el-col>
+        <el-col :span="2"><div class="grid-content bg-purple">
+          <el-link @click="editComment">评论管理</el-link>
         </div></el-col>
         <el-col :span="2"><div class="grid-content bg-purple">
           <el-link @click="linkCenter">个人中心</el-link>
@@ -54,21 +60,27 @@ export default {
 
     methods: {
       linkHome() {
-        console.log('首页被点击')
         this.$router.push('/home')
       },
 
       editGoods() {
-          this.$router.push('/editGoods')
+        this.$router.push('/editGoods')
       },
 
       linkCenter() {
-          console.log('个人中心被点击')
-          this.$router.push('/center')
+        this.$router.push('/adminCenter')
       },
 
       editOrder() {
         this.$router.push('/editOrder')
+      },
+
+      editComment() {
+        this.$router.push('/editComment')
+      },
+
+      editUsers() {
+        this.$router.push('/editUsers')
       },
 
       ...mapMutations('loginModule', ['clearUser']),

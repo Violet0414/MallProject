@@ -39,6 +39,12 @@ const base ={
 
     getCenter: '/api/getCenter',                     // 获取个人信息
     changeMessage: '/api/changeMessage',             // 修改个人信息
+    editComments: 'api/editComments',                // 展示评论表单
+    editUsers: '/api/editUsers',                     // 展示用户列表
+    delComment: '/api/delComment',                   // 删除评论
+    delUser: '/api/delUser',                         // 删除用户
+    searchUser: '/api/searchUser',                 // 搜索用户
+    searchComment: '/api/searchComment',             // 搜索评论
 
     login:'/api/login',                              // 登录接口
     register: '/api/register',                       // 注册接口

@@ -8,11 +8,15 @@ import Home from '../views/Home/Home.vue'
 import EditGoods from '../views/Admin/EditGoods.vue'
 import EditOrder from '../views/Admin/EditOrder.vue'
 
+const AdminCenter = () => import('../views/Admin/AdminCenter.vue')
 const Center = () => import('../views/Center/Center.vue')
 const GoodsDetail = () => import('../components/GoodsDetail.vue')
 const GoodsList = () => import('../views/GoodsList/GoodsList.vue')
 const Cart = () => import('../views/Cart/Cart.vue')
-const MyOrders = () => import('../views/Cart/myOrders.vue')
+const MyOrders = () => import('../views/Cart/MyOrders.vue')
+const EditComment = () => import('../views/Admin/EditComment.vue')
+const EditUsers = () => import('../views/Admin/EditUser.vue')
+
 
 
 Vue.use(VueRouter)
@@ -86,6 +90,21 @@ const routes = [
         name: 'editOrder',
         component: EditOrder,
       },  
+      {
+        path: '/adminCenter',
+        name: 'adminCenter',
+        component: AdminCenter,
+      },
+      {
+        path: '/editComment',
+        name: 'editComment',
+        component: EditComment,
+      },
+      {
+        path: '/editUsers',
+        name: 'editUsers',
+        component: EditUsers,
+      },
     ]
   },
 ]

@@ -20,7 +20,10 @@
 </template>
 
 <script>
+import store from '../store/index'
+
 export default {
+    inject: ['reload'],
     name: 'Addcomments',
     props: {
         dialogVisible: {
@@ -68,10 +71,8 @@ export default {
                     console.log('进入提交阶段')
                     let content = this.ruleForm.content;
                     let gid = this.gid
-                    let uid = '666'
-                    console.log('传入的gid为:', gid)
-                    console.log('传入的uid为:', uid)
-                    console.log('传入的content为:', content)
+                    let uid = store.state.loginModule.userinfo.uid
+
                     this.$api.addComments({gid, uid, content})
                     .then((res) => {
                     if(res.status == 200){
@@ -80,7 +81,7 @@ export default {
                         type: 'success'
                         });
                         setTimeout(() => {
-                            history.go(0)
+                            this.reload()
                         }, 700);
                     }else {
                         this.$message.error('发布失败');

@@ -3,8 +3,7 @@
         <el-dialog
         :title="title"
         :visible.sync="dialogVisible"
-
-        width="70%"> 
+        width="50%"> 
 
              <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="商品名称" prop="name">
@@ -46,7 +45,7 @@
                     <UploadImg @sendImg = 'sendImg'></UploadImg>
                     
                     <span slot="footer" class="dialog-footer">
-                        <el-button type="primary" @click="showImg">确 定</el-button>
+                        <el-button type="primary">确 定</el-button>
                         <el-button @click="dialogVisibleImg = false">取 消</el-button>
                     </span>
                 </el-form-item>
@@ -57,7 +56,7 @@
                 width="30%"
                 append-to-body>
                     <span slot="footer" class="dialog-footer">
-                        <el-button type="primary" @click="showImg">确 定</el-button>
+                        <el-button type="primary">确 定</el-button>
                         <el-button @click="dialogVisibleImg = false">取 消</el-button>
                     </span>
                 </el-dialog>
@@ -201,6 +200,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .demo-ruleForm {
+    left: 5% !important;
+  }
+
+  ::v-deep .el-form-item__content {
+    display: flex;
+    justify-content: start;
+  }
+
+  ::v-deep .el-upload--picture-card {
+    width: 130px;
+    height: 130px;
+  }
 
 </style>

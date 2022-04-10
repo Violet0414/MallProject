@@ -36,25 +36,30 @@ export default {
 
 <style scoped>
     .itemDiv {
-        width: 100%;
-        border: 1px solid;
+        /* position: absolute; */
+        height: 180px;
+        width: 99%;
+        /* border: 1px solid; */
+        margin: auto;
         margin-top: 3px;
-    }
-
-    .itemDiv p {
-        position: relative;
-        left: 30px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
     }
 
     .itemDiv h4 {
-        position: relative;
-        left: 10px;
+        position: absolute;
+        left: 15px;
+    }
+
+    .itemDiv p {
+        position: absolute;
+        margin-top: 5%;
+        left: 30px;
     }
 
     .itemDiv span {
-        position: relative;
+        position: absolute;
         left: 90%;
-        bottom: 3px;
+        margin-top: 8%;
     }
 
 </style>

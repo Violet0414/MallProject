@@ -51,7 +51,7 @@
       <el-tab-pane label="修改密码">
         <el-row :gutter="150">
           <div>
-            <ChangePassword></ChangePassword>
+            <ChangePassword :tableName="tableName"></ChangePassword>
            
           </div>
         </el-row>
@@ -79,11 +79,11 @@ export default {
       }
     },
     tableName: {
-      type: String,
-      default() {
-        return ''
-      }
-    }
+        type: String,
+        default() {
+          return ''
+        }
+      },
   },
   data() {
     return {
@@ -92,7 +92,7 @@ export default {
       aDialog: false,
       pDialog: false,
       eDialog: false,
-      // tableName: 'tableName'
+      // tableName: 'users'
     }
   },
 

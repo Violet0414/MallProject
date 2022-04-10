@@ -16,7 +16,10 @@
         </div>
 
         <div class="tabDiv">
-          <el-button type="warning" icon="el-icon-star-off" class="collection" :style="getStyle()" @click="addCart"> {{btnText}} </el-button>
+          <el-button type="warning" icon="el-icon-star-off" class="collection" 
+          :style="getStyle()" @click="addCart"> {{btnText}} 
+          </el-button>
+
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="参数" name="first">{{goodsData.parameter}}</el-tab-pane>
             <el-tab-pane label="简介" name="second">{{goodsData.introduction}}</el-tab-pane>
@@ -106,10 +109,6 @@ import store from '../store/index'
             let uid = store.state.loginModule.userinfo.uid
             let gname = this.goodsData.name
             let imgUrl = this.imgUrl
-            console.log('传入的goodsData.name为:', this.goodsData.name)
-            console.log('传入的gid为:', gid)
-            console.log('传入的uid为:', uid)
-            console.log('传入的imgUrl为:', imgUrl)
             this.$api.addCart({gid, uid, imgUrl, gname})
             .then((res) => {
               if(res.status == 200){
@@ -123,9 +122,7 @@ import store from '../store/index'
             });
           } else {
             let gid = this.gid
-            let uid = '666'
-            console.log('传入的gid为:', gid)
-            console.log('传入的uid为:', uid)            
+            let uid = store.state.loginModule.userinfo.uid          
             this.$api.delCart({gid, uid})
             .then((res) => {
               if(res.status == 200){
@@ -191,18 +188,20 @@ import store from '../store/index'
     }
 
     .collection {
-      position: relative;
+      position: absolute;
       left: 85%;
-      top: 3;
+      z-index: 9;
+      /* top: -50%; */
       
     }
 
     .tabDiv {
+      position: relative;
       margin-top: 10%
     }
   
-    .el-tabs__item {
-    font-size: 20px !important;
+    ::v-deep .el-tabs__item {
+      font-size: 20px !important;
     }
   
     .el-row {

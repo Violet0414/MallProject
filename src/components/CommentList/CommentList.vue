@@ -43,7 +43,6 @@
   
   <style scoped>
     .list{
-      display: flex;
-      flex-wrap: wrap;
+      position: relative;
     }
   </style>

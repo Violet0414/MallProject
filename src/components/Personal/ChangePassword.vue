@@ -30,6 +30,14 @@
 import store from '../../store/index'
 
   export default {
+    props: {
+      tableName: {
+        type: String,
+        default() {
+          return ''
+        }
+      },
+    },
     data() {
       return {
         form: {
@@ -56,7 +64,7 @@ import store from '../../store/index'
     },
 
     created() {
-
+      console.log('---------------', this.tableName);
     },
 
 
@@ -67,7 +75,7 @@ import store from '../../store/index'
             if (valid) {
                 console.log('进入提交阶段')
                 this.$api.changeMessage({
-                tableName: 'users',
+                tableName,
                 column,
                 message,
                 uid: store.state.loginModule.userinfo.uid,
@@ -75,10 +83,12 @@ import store from '../../store/index'
                 .then((res) => {
                   if(res.status == 200){
                     this.$message({
-                        message: '修改成功',
+                        message: '修改成功,请重新登录',
                         type: 'success'
                     });      
-                    this.$router.push('/login')
+                    setTimeout(() => {
+                      this.$router.push('/login')
+                    }, 1000);
                   }
                 }) 
                 } else {

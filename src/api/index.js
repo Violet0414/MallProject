@@ -117,6 +117,7 @@ const api = {
         })
     },
 
+    // 个人订单查看
     myOrders(params) {
         return axios.get(base.myOrders, {
             params 
@@ -182,6 +183,52 @@ const api = {
     // 添加评论
     addComments(params) {
         return axios.get(base.addComments, {
+            params 
+        })
+    },
+
+
+// =================================== 用户管理部分 ===================================  
+
+    // 管理员获取评论表
+    editComments(params) {
+        return axios.get(base.editComments, {
+            params 
+        })
+    },
+
+    // 管理员获取用户表
+    editUsers(params) {
+        return axios.get(base.editUsers, {
+            params 
+        })
+    },
+
+    // 删除用户
+    delUser(params) {
+        return axios.get(base.delUser, {
+            params 
+        })
+    },
+
+    // 删除评论
+    delComment(params) {
+        return axios.get(base.delComment, {
+            params 
+        })
+    },
+
+    // 搜索用户
+    searchUser(params) {
+        return axios.get(base.searchUser, {
+            params 
+        })
+    },
+
+
+    // 搜索评论
+    searchComment(params) {
+        return axios.get(base.searchComment, {
             params 
         })
     },

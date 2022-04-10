@@ -30,7 +30,7 @@ router.post('/login', (req, res) => {
     let {uid, pwd, type} = req.body
     let sql = ''
     if(type == 1){
-        sql = "select * from admin where aid=? and pwd=?"
+        sql = "select * from admin where uid=? and pwd=?"
     }else{
         sql = "select * from users where uid=? and pwd=?";
     }
@@ -248,7 +248,8 @@ router.get("/addComments", (req, res) => {
 // 获取个人信息模块数据
 router.get('/getCenter', (req, res) => {
     var uid = req.query.uid;
-    const sql = "select * from users where uid =" + uid;
+    var tableName = req.query.tableName
+    const sql = "select * from " + tableName + " where uid = " + uid;
     sqlFn(sql, null, result => {
         if (result.length > 0) {
             res.send({
@@ -424,7 +425,7 @@ router.get("/delCart", (req, res) => {
     var gid = req.query.gid;
     const sql = "delete from cart where uid=" + uid + " and gid in(" + gid + ")"
     sqlFn(sql, null, result => {
-        console.log(sql)
+
         if (result.affectedRows > 0) {
             res.send({
                 status: 200,
@@ -579,7 +580,152 @@ router.get("/changeOrder", (req, res) => {
 })
 
 
+// ============================================= 管理用户 ===============================================
 
+// 管理员获取评论列表
+router.get("/editComments", (req, res) => {
+    const page = req.query.page || 1;
+    const sqlLen = "select * from comment where cid";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = "select * from comment order by cid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+}),
+
+// 查看用户
+router.get("/editUsers", (req, res) => {
+    const page = req.query.page || 1;
+    const sqlLen = "select * from users where uid";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = "select * from users order by uid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+}),
+
+
+// 删除评论
+router.get("/delComment", (req, res) => {
+    var cid = req.query.cid;
+    const sql = "delete from comment where cid =" + cid
+    sqlFn(sql, null, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "删除成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "删除失败"
+            })
+        }
+    })
+})
+
+// 删除用户
+router.get("/delUser", (req, res) => {
+    var uid = req.query.uid;
+    const sql = "delete from users where uid =" + uid
+    sqlFn(sql, null, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "删除成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "删除失败"
+            })
+        }
+    })
+})
+
+// 搜索用户
+router.get('/searchUser', (req, res) => {
+    const page = req.query.page || 1;
+    var search = req.query.search;
+    const sqlLen = "select * from users where concat(`name`, `uid`) like '%" + search + "%'";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = 
+        "select * from users where concat(`name`, `uid`) like '%" + search 
+        + "%' order by uid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+})
+
+// 搜索评论
+router.get('/searchComment', (req, res) => {
+    const page = req.query.page || 1;
+    var search = req.query.search;
+    const sqlLen = "select * from comment where concat(`cid`, `uid`, `content`) like '%" + search + "%'";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = 
+        "select * from comment where concat(`cid`, `uid`, `content`) like '%" + search 
+        + "%' order by cid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+})
 
 
 // ============================================== ======= ==============================================

@@ -37,7 +37,7 @@
 <script>
 import jwt from 'jwt-decode';
 import {mapMutations} from 'vuex'
-import Dialog from './register.vue'
+import Dialog from './Register.vue'
 
  export default {
    components: {

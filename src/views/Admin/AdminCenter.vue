@@ -11,7 +11,6 @@ import store from '../../store/index'
 export default {
     components: {
         PersonalCenter,
-
     },
 
 
@@ -22,12 +21,11 @@ export default {
         return {
             userData: [],
             number:'',
-            tableName: 'users',
+            tableName: 'admin',
         }
     },
 
     created() {
-      console.log(store.state.loginModule.userinfo.uid);
       this.http(1)
     },
 
@@ -35,10 +33,9 @@ export default {
       
       // 分页, 绑定信息
       http(){
-        
         this.$api.getCenter({
           uid: store.state.loginModule.userinfo.uid,
-          tableName: 'users',
+          tableName: 'admin',
         }).then(res => {
           console.log('res.data:', res.data);
           if(res.status == 200){
