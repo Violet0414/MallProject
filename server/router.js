@@ -174,8 +174,6 @@ router.get('/getSearch', (req, res) => {
 //  获取商品详情
 router.get('/goodsDetail', (req, res) => {
     var gid = req.query.gid;
-    console.log("++++++++++++++", req.query)
-    console.log("===================", gid)
     const sql = "select * from goods where gid =" + gid;
     sqlFn(sql, null, (result) => {
         if (result.length > 0) {
@@ -724,6 +722,27 @@ router.get('/searchComment', (req, res) => {
                 })
             }
         })
+    })
+})
+
+// 提交反馈
+router.get("/addFeedback", (req, res) => {        
+    var content = req.query.content;
+    var time = new Date();
+    const sql = "insert into feedback values (null,?,?)"
+    var arr = [content, time.toLocaleDateString()]
+    sqlFn(sql, arr, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "提交成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "提交失败"
+            })
+        }
     })
 })
 

@@ -17,8 +17,32 @@
     <div class="belowDiv">
       <ShowRecommend></ShowRecommend>
     </div>
-    <el-footer>Footer</el-footer>
+    <el-footer>
+        <i class="el-icon-location">   地址: XXXXXX-XXXXX-666号</i>
+        <i class="el-icon-phone">   联系电话: 1999911</i>
+        <li class="el-icon-s-promotion">   邮箱: @554893.qq.com</li>
+        <el-button type="primary" round @click="dialog" icon="el-icon-upload">提出反馈</el-button>
+    </el-footer>
 
+    <el-dialog
+        title="反馈意见"
+        :visible.sync="dialogVisible"
+        width="50%"> 
+
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="反馈意见" prop="content">
+              <el-input type="textarea" 
+              maxlength="300"
+              show-word-limit 
+              v-model="ruleForm.content"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitForm('ruleForm')" 
+              style="float: right; margin-top: 30px">立即提交
+              </el-button>
+            </el-form-item>
+          </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -33,9 +57,51 @@ export default {
     LowPrice,
     ShowRecommend,
   },
+  data() {
+    return {
+      dialogVisible: false,
+
+      ruleForm: {
+        content: ''
+      },
+
+      rules: {
+        content: [
+          { required: true, message: '请输入您的意见', trigger: 'blur' },
+          // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+      },
+    }
+  },
+
+  
+
+
 
   methods: {
-    
+    dialog() {
+      this.dialogVisible = true
+    },
+
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            console.log('进入提交阶段')
+            let content = this.ruleForm.content;
+            this.$api.addFeedback({
+              content,
+            })
+            .then((res) => {
+              if(res.status == 200){
+                this.$message({
+                  type: 'success',
+                  message: '提交成功'
+                })
+              }
+            }) 
+          }
+        })
+      },
   }
 }
 </script>
@@ -59,6 +125,7 @@ export default {
     margin-left: 85%;
     margin-top: 15px;
   }
+
 
   .outDiv {
     margin-top: 1%;
@@ -123,13 +190,18 @@ export default {
 
 /* 页面布局背景 */
   .el-footer {
-    position: relative;
-    background-color: #a0c8fd;
     color: #333;
     text-align: center;
     line-height: 60px;
     width: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    /* justify-content: center;   子元素水平居中 */
+    align-items: center;       /* 子元素垂直居中 */
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
   }
+
   
   
   

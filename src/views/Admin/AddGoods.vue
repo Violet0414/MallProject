@@ -62,7 +62,8 @@
                 </el-dialog>
 
                 <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')" style="float: right; margin-top: 30px">立即上传</el-button>
+                <el-button type="primary" @click="submitForm('ruleForm')" 
+                style="float: right; margin-top: 30px">立即上传</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>

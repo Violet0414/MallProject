@@ -233,6 +233,13 @@ const api = {
         })
     },
 
+    
+    // 提交反馈
+    addFeedback(params) {
+        return axios.get(base.addFeedback, {
+            params 
+        })
+    },
 
 }
 
