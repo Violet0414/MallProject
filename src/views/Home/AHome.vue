@@ -3,17 +3,28 @@
     <div>
       <el-row :gutter="20">
         <el-col :span="6">
-          <div class="grid-content bg-purple">
-            
+          <div class="grid-content bg-four">
+            <li class="el-icon-s-custom"> 用户总数: 23 人</li>
           </div>
         </el-col>
+
         <el-col :span="6">
-          <div class="grid-content bg-purple">
-          
+          <div class="grid-content bg-three">
+            <li class="el-icon-s-goods"> 商品总数: 31 种</li>
           </div>
         </el-col>
-        <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
-        <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+
+        <el-col :span="6">
+          <div class="grid-content bg-two">
+            <li class="el-icon-s-order"> 销售总额: 12323 ￥</li>
+          </div>
+        </el-col>
+
+        <el-col :span="6">
+          <div class="grid-content bg-one">
+            <li class="el-icon-s-comment"> 反馈总数: 18 条</li>
+          </div>
+        </el-col>
       </el-row>
     </div>
     <div id="main" style="width: 600px;height:400px;"></div>
@@ -30,7 +41,7 @@ export default {
   },
   data() {
     return {
-      columnData: [153, 289, 87, 93, 120],
+      columnData: [25, 43, 57, 30, 69, 32],
     }
   },
 
@@ -48,7 +59,7 @@ export default {
       // 绘制图表
       myChart.setOption({
         title: {
-          text: '类别销量统计'
+          text: '各类别销量统计'
         },
         tooltip: {},
         xAxis: {
@@ -61,7 +72,16 @@ export default {
           {
             name: '销量',
             type: 'bar',
-            data: this.columnData
+            data: this.columnData,
+            itemStyle:{
+                normal:{
+                   color: function(params) {
+                	  //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                    var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#ca8622'];
+                    return colorList[params.dataIndex]
+                  }
+                }
+            },
           }
         ]
       });
@@ -93,25 +113,41 @@ export default {
     position:absolute;
   }
 
+  .grid-content li{
+    font-size: 25px;
+  }
+
+  .bg-one {
+    border-radius: 10px;
+    background-color: #0073b6;
+  }
+  
+  .bg-two {
+    border-radius: 10px;
+    background-color: #807bb6;
+  }
+
+  .bg-three {
+    border-radius: 10px;
+    background-color: #43a1df;
+  }
+
+  .bg-four {
+    border-radius: 10px;
+    background-color: #1bd4b2;
+  }
+
   .el-row {
     margin-bottom: 20px;
   }
-  .el-col {
-    border-radius: 4px;
-  }
-  .bg-purple-dark {
-    background: #99a9bf;
-  }
-  .bg-purple {
-    background: #d3dce6;
-  }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+
   .grid-content {
     margin-top: 10px;
-    border-radius: 4px;
-    min-height: 300px;
+    border-radius: 6px;
+    min-height: 150px;
+    display: flex;
+    align-items:center;
+    justify-content:center;
   }
   .row-bg {
     padding: 10px 0;

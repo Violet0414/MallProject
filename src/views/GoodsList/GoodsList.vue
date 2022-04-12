@@ -127,6 +127,14 @@
 </script>
   
 <style scoped>
+  .outDiv {
+    margin-top: 1%;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    position:absolute;
+  }
+
   .el-tabs__item {
     font-size: 10px !important;
     /* margin-left: 7% !important; */
