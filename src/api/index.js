@@ -248,7 +248,14 @@ const api = {
         })
     },
 
+    // 删除反馈
+    delProposal(params) {
+        return axios.get(base.delProposal, {
+            params 
+        })
+    },
 
+    // 获取总额
     getSales(params) {
         return axios.get(base.getSales, {
             params 

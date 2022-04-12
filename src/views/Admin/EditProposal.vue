@@ -135,14 +135,14 @@
 
       // 删除操作
       handleDelete(index, row){
-        console.log('删除', index, row)
+        console.log('删除asdasdasdasd', index, row)
         this.$confirm('此操作将永久删除该提议, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$api.delUser({
-            uid: row.uid
+          this.$api.delProposal({
+            fid: row.fid
           }).then(res => {
             if(res.data.status === 200) {
                 this.$message({

@@ -7,10 +7,11 @@
 
       <el-tabs v-model="activeName" @tab-click="cHandleClick">
         <el-tab-pane label="全部" name="全部"></el-tab-pane>
-        <el-tab-pane label="类别1" name="1"></el-tab-pane>
-        <el-tab-pane label="类别2" name="2"></el-tab-pane>
-        <el-tab-pane label="类别3" name="3"></el-tab-pane>
-        <el-tab-pane label="类别4" name="4"></el-tab-pane>
+        <el-tab-pane label="上新" name="1"></el-tab-pane>
+        <el-tab-pane label="流行" name="2"></el-tab-pane>
+        <el-tab-pane label="推荐" name="3"></el-tab-pane>
+        <el-tab-pane label="特价" name="4"></el-tab-pane>
+        <el-tab-pane label="即将下架" name="5"></el-tab-pane>
       </el-tabs>
 
       <div class="listDiv">

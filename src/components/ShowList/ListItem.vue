@@ -62,8 +62,9 @@ export default {
         border-radius: 10px 10px 0% 0%;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
         
-        background-image: url('../../assets/logo.png');
-        background-size: cover;
+        /* background-image: url('../../assets/logo.png');
+        background-size: cover; */
+        background-color: rgb(255, 255, 255);
         margin: 10px;
         width: 100%;
         height: 50%;

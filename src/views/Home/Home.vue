@@ -109,21 +109,20 @@ export default {
 <style scoped>
   .test {
     position: absolute;
-    background-image: url('../../assets/test.png');
-    background-size: cover;
-    height: 200px;
-    width: 200px;
-    margin-top: 15px;
+    height: 360px;
+    width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    /* margin-left: 85%; */
   }
 
   .test2 {
     position: absolute;
-    background-image: url('../../assets/test.png');
-    background-size: cover;
-    height: 200px;
-    width: 200px;
+    /* background-image: url('../../assets/test.png'); */
+    /* background-size: cover; */
+    height: 360px;
+    width: 180px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     margin-left: 85%;
-    margin-top: 15px;
   }
 
 
