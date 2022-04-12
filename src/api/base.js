@@ -46,6 +46,10 @@ const base ={
     searchUser: '/api/searchUser',                   // 搜索用户
     searchComment: '/api/searchComment',             // 搜索评论
     addFeedback: '/api/addFeedback',                 // 提交反馈
+    editProposal: '/api/editProposal',               // 获取反馈
+    delProposal: '/api/delProposal',                 // 删除反馈
+
+    getSales:'/api/getSales',
 
     login:'/api/login',                              // 登录接口
     register: '/api/register',                       // 注册接口

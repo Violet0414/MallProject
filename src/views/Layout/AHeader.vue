@@ -60,7 +60,7 @@ export default {
 
     methods: {
       linkHome() {
-        this.$router.push('/home')
+        this.$router.push('/aHome')
       },
 
       editGoods() {

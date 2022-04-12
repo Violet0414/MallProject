@@ -106,7 +106,7 @@ import Dialog from './Register.vue'
                 // 存储至本地
                 localStorage.setItem('user', JSON.stringify(obj))
                 if(this.type == 1) {
-                  this.$router.push('/editOrder')
+                  this.$router.push('/aHome')
                 }else{
                   this.$router.push('/home')
                 }
@@ -133,7 +133,7 @@ import Dialog from './Register.vue'
 <style scoped>
 
   .outDiv {
-      background-image: url('../assets/item1.jpg');
+      background-image: url('../assets/bgimg.jpg');
       background-size: cover;
       overflow: hidden;
       height: 100%;

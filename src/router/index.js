@@ -5,6 +5,7 @@ import Header from '../views/Layout/Header.vue'
 import AHeader from '../views/Layout/AHeader.vue'
 import Login from '../components/Login.vue'
 import Home from '../views/Home/Home.vue'
+import AHome from '../views/Home/AHome.vue'
 import EditGoods from '../views/Admin/EditGoods.vue'
 import EditOrder from '../views/Admin/EditOrder.vue'
 
@@ -80,6 +81,11 @@ const routes = [
       isLogin: true
     },
     children: [
+      {
+        path: '/aHome',
+        name: 'aHome',
+        component: AHome,
+      },
       {
         path: '/editGoods',
         name: 'editGoods',

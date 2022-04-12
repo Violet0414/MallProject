@@ -746,6 +746,73 @@ router.get("/addFeedback", (req, res) => {
     })
 })
 
+// 获取反馈
+router.get("/editProposal", (req, res) => {
+    const page = req.query.page || 1;
+    const sqlLen = "select * from feedback where fid";
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = "select * from feedback order by fid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+}),
+
+// 删除反馈
+router.get("/delProposal", (req, res) => {
+    var fid = req.query.fid;
+    const sql = "delete from feedback where fid =" + fid
+    sqlFn(sql, null, result => {
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "删除成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "删除失败"
+            })
+        }
+    })
+})
+
+
+
+
+// 获取销量
+router.get("/getSales", (req, res) => {
+    const sql = "SELECT type,SUM(sales) as sales FROM goods WHERE type BETWEEN 1 AND 5 group by type;"
+    sqlFn(sql, null, (result) => {
+        if (result.length > 0) {
+        console.log(result);
+            res.send({
+                status: 200,
+                data: result,
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "暂无数据"
+            })
+        }
+    })
+})
+
+
 
 // ============================================== ======= ==============================================
 

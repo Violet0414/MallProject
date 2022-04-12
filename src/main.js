@@ -6,6 +6,9 @@ import api from './api/index'
 import './plugins/element.js'
 import './utils/localStorage' // 持久化
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts;
+
 import Video from 'video.js'
 import 'video.js/dist/video-js.css'
 Vue.prototype.$video = Video

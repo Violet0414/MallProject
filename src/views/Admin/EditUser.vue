@@ -4,7 +4,6 @@
     <div class="header">
       <el-input placeholder="请输入您所要查询的用户" @change="searchInput" v-model="input" clearable></el-input>
       <el-button type="primary">查询</el-button>
-      <el-button type="primary" @click="addGoods">添加</el-button>
     </div>
 
       

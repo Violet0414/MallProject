@@ -241,6 +241,20 @@ const api = {
         })
     },
 
+    // 获取反馈
+    editProposal(params) {
+        return axios.get(base.editProposal, {
+            params 
+        })
+    },
+
+
+    getSales(params) {
+        return axios.get(base.getSales, {
+            params 
+        })
+    },
+
 }
 
 export default api
