@@ -63,7 +63,7 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: ['类别1', '类别2', '类别3', '类别4', '类别5', '类别6']
+          data: ['上新', '流行', '推荐', '特价', '爆款', '即将下架']
         },
         yAxis: {
           // type: 'value'

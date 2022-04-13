@@ -126,8 +126,6 @@
          this.$api.showGoods({
             page,
           }).then(res => {
-            console.log(res.data);
-            console.log("tableData:", this.tableData)
             if(res.status == 200){
               this.tableData = res.data.data
               this.total = res.data.total;
@@ -273,7 +271,7 @@
   } 
 
   .form{
-    left: 10%;
+    left: 15%;
   }
 
   .page {

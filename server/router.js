@@ -798,7 +798,6 @@ router.get("/getSales", (req, res) => {
     const sql = "SELECT type,SUM(sales) as sales FROM goods WHERE type BETWEEN 1 AND 5 group by type;"
     sqlFn(sql, null, (result) => {
         if (result.length > 0) {
-        console.log(result);
             res.send({
                 status: 200,
                 data: result,

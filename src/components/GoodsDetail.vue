@@ -3,11 +3,12 @@
       <h2>{{goodsData.name}}</h2>
         <el-row :gutter="20">
           <el-col :span="2"><div class="grid-content bg-purple">价格：{{goodsData.price}}</div></el-col>
-          <el-col :span="2"><div class="grid-content bg-purple">类别：{{goodsData.type}}</div></el-col>
+          <!-- <el-col :span="2"><div class="grid-content bg-purple">类别：{{goodsData.type}}</div></el-col> -->
           <el-col :span="2"><div class="grid-content bg-purple">销量：{{goodsData.sales}}</div></el-col>
+          <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col>
+          <!-- <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col> -->
         </el-row>
         
 
@@ -163,11 +164,11 @@ import store from '../store/index'
 
     .block {
       margin: 10px;
-      left: 65%;
+      left: 63%;
       top: 5%;
       position: absolute;
-      width: 30%;
-      height: 240px;
+      width: 35%;
+      height: 280px;
 
       border: 1px solid rgb(235, 235, 235);
       border-radius: 10px 10px 0% 0%;
@@ -189,10 +190,9 @@ import store from '../store/index'
 
     .collection {
       position: absolute;
-      left: 85%;
+      left: -1px;
       z-index: 9;
-      /* top: -50%; */
-      
+      margin-top: -12%;;
     }
 
     .tabDiv {

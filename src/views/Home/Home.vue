@@ -109,6 +109,8 @@ export default {
 <style scoped>
   .test {
     position: absolute;
+    background-image: url('../../assets/bg.jpg');
+    background-size: cover;
     height: 360px;
     width: 180px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -117,8 +119,8 @@ export default {
 
   .test2 {
     position: absolute;
-    /* background-image: url('../../assets/test.png'); */
-    /* background-size: cover; */
+    background-image: url('../../assets/bg.jpg');
+    background-size: cover;
     height: 360px;
     width: 180px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);

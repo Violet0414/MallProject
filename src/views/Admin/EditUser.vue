@@ -199,7 +199,7 @@
     } 
 
   .form{
-    left: 10%;
+    left: 15%;
   }
 
   .page {

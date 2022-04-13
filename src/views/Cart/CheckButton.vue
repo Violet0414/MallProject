@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import store from '../../store/index'
+
 export default {
   inject: ['reload'],
 
@@ -42,7 +44,7 @@ export default {
         }).then(() => {
           this.$api.delCart({
             gid: this.itemGid,
-            uid: 666,
+            uid: store.state.loginModule.userinfo.uid,
           }).then(res => {
             if(res.data.status === 200) {
                 this.$message({
