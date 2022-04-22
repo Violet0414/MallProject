@@ -1,12 +1,5 @@
 <template> 
   <div class="outDiv">
-    <!-- 搜索栏区域 -->
-    <!-- <div class="header">
-      <el-input placeholder="请输入您所要查询的用户" @change="searchInput" v-model="input" clearable></el-input>
-      <el-button type="primary">查询</el-button>
-    </div> -->
-
-      
     <!-- 表单区域 -->
     <el-table
     class="form"
@@ -77,12 +70,10 @@
 
     methods: {
       editProposal(page) {
-        console.log('editProposal执行=================')
          this.$api.editProposal({
             page,
           }).then(res => {
             console.log(res.data);
-            console.log("tableData:", this.tableData)
             if(res.status == 200){
               this.tableData = res.data.data
               this.total = res.data.total;
@@ -117,11 +108,6 @@
         });
       },
 
-      // 调用输入查询方法
-      getSearch(val) {
-        this.searchInput(val)
-      },
-
 
       // 页面改变
       changePage(num) {
@@ -146,10 +132,11 @@
           }).then(res => {
             if(res.data.status === 200) {
                 this.$message({
-                type: 'success',
-                message: '删除成功'
-              })
-              this.editProposal(1)                  // 更新视图
+                  type: 'success',
+                  message: '删除成功'
+                })
+              // this.editProposal(1)                  // 更新视图
+              location.reload();
             }
           })
         }).catch(() => {

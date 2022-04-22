@@ -4,25 +4,25 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <div class="grid-content bg-four">
-            <li class="el-icon-s-custom"> 用户总数: 23 人</li>
+            <li class="el-icon-s-custom"> 用户总数: {{uNum}} 人</li>
           </div>
         </el-col>
 
         <el-col :span="6">
           <div class="grid-content bg-three">
-            <li class="el-icon-s-goods"> 商品总数: 31 种</li>
+            <li class="el-icon-s-goods"> 商品总数: {{gNum}} 种</li>
           </div>
         </el-col>
 
         <el-col :span="6">
           <div class="grid-content bg-two">
-            <li class="el-icon-s-order"> 销售总额: 12323 ￥</li>
+            <li class="el-icon-s-order"> 利润:{{pNum}}￥</li>
           </div>
         </el-col>
 
         <el-col :span="6">
           <div class="grid-content bg-one">
-            <li class="el-icon-s-comment"> 反馈总数: 18 条</li>
+            <li class="el-icon-s-comment"> 反馈总数: {{fNum}} 条</li>
           </div>
         </el-col>
       </el-row>
@@ -42,11 +42,20 @@ export default {
   data() {
     return {
       columnData: [25, 43, 57, 30, 69, 32],
+
+      uNum: '',
+      gNum: '',
+      pNum: '',
+      fNum: '',
+      
     }
   },
 
   created() {
-    this.getSales();
+    this.getUnum('users', 'uid');
+    this.getGnum('goods', 'gid');
+    this.getFnum('feedback', 'fid');
+    this.getPnum();
   },
 
   mounted() {
@@ -87,19 +96,49 @@ export default {
       });
     },
 
-    getSales() {
-       console.log('getSales=================')
-         this.$api.getSales({
-          }).then(res => {
-            if(res.status == 200){
-              this.columnData = 
-              [res.data.data[0].sales, res.data.data[1].sales, 
-              res.data.data[2].sales, res.data.data[3].sales, 
-              res.data.data[4].sales]
-              console.log(this.columnData)
-            }
-        })
-    }
+    getPnum() {
+      this.$api.getProfit({
+        }).then(res => {
+          if(res.status == 200){
+            this.pNum = res.data.data[0].price;
+            console.log("+++++++++++++++++++++++++++++++++++++++++++", res.data.data[0].price)
+          }
+      })
+    },
+
+    getUnum(tableName, column) {
+      this.$api.getNum({
+        tableName,
+        column,
+        }).then(res => {
+          if(res.status == 200){
+            this.uNum = res.data.num;
+          }
+      })
+    },
+
+    getGnum(tableName, column) {
+      this.$api.getNum({
+        tableName,
+        column,
+        }).then(res => {
+          if(res.status == 200){
+            this.gNum = res.data.num;
+          }
+      })
+    },
+
+    getFnum(tableName, column) {
+      this.$api.getNum({
+        tableName,
+        column,
+        }).then(res => {
+          if(res.status == 200){
+            this.fNum = res.data.num;
+          }
+      })
+    },
+
   }
 }
 </script>

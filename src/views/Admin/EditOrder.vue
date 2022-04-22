@@ -5,6 +5,14 @@
       <el-input placeholder="请输入您所要查询的订单" 
       @change="searchInput" v-model="input" clearable style="margin-right: 10px;"></el-input>
       <el-button class="sbtn" type="primary">查询</el-button>
+
+      <download-excel
+          class = "export-excel-wrapper"
+          :data = this.tableData
+          :fields = this.fields
+          name = "商品订单表">
+          <el-button type="primary" class="ebtn" size="small">导出订单</el-button>
+      </download-excel>
     </div>
 
     <el-tabs v-model="activeName" @tab-click="cHandleClick">
@@ -112,6 +120,8 @@
 
         dType: true,    // 控制配送按钮是否显示
         sType: null,    // 控制完成按钮是否显示
+
+        fields: {'用户': 'uid', '购物清单': 'detail', '总价': 'price', '地址': 'address', '时间': 'time', },
       }
     },
 
@@ -122,8 +132,6 @@
             page,
             type,        // 查询待处理订单
           }).then(res => {
-            console.log(res.data);
-            console.log("tableData:", this.tableData)
             if(res.status == 200){
               this.tableData = res.data.data
               this.total = res.data.total;
@@ -275,7 +283,13 @@
   .sbtn {
       margin: auto;
       height: 30%;
-  } 
+  }
+  
+  .ebtn {
+    height: 40px;
+    margin-left: 10px;
+    margin-bottom: 9px;
+  }
 
   .form{
     left: 1%;

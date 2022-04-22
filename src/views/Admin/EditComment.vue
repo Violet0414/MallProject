@@ -93,12 +93,9 @@
 
     methods: {
       editComments(page) {
-        console.log('editComments执行=================')
          this.$api.editComments({
             page,
           }).then(res => {
-            console.log(res.data);
-            console.log("tableData:", this.tableData)
             if(res.status == 200){
               this.tableData = res.data.data
               this.total = res.data.total;
@@ -120,7 +117,6 @@
           search: val,
         })
         .then((res) => {
-          console.log("搜索---", res.data);
           this.currentPage = 1;
           if (res.data.status === 200) {
             this.tableData = res.data.data
@@ -129,6 +125,10 @@
           } else {
             this.total = 1;
             this.pageSize = 1;
+            this.$message({
+              type: 'error',
+              message: '暂无此评论'
+            }); 
           }
         });
       },

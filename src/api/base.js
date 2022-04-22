@@ -49,7 +49,9 @@ const base ={
     editProposal: '/api/editProposal',               // 获取反馈
     delProposal: '/api/delProposal',                 // 删除反馈
 
-    getSales:'/api/getSales',
+    getNum: '/api/getNum',                           // 获取总数
+    getProfit: '/api/getProfit',                     // 获取总利润
+    getSales:'/api/getSales',                        // 获取销量
 
     login:'/api/login',                              // 登录接口
     register: '/api/register',                       // 注册接口

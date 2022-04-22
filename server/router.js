@@ -793,6 +793,47 @@ router.get("/delProposal", (req, res) => {
 
 
 
+//  获取各种总数
+router.get('/getNum', (req, res) => {
+    let tableName = req.query.tableName;
+    let column = req.query.column;
+    const sql = "select * from " + tableName + " where " + column;
+    sqlFn(sql, null, result => {
+        let len = result.length;
+        if (result.length > 0) {
+            res.send({
+                status: 200,
+                data: result,
+                num: len
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "暂无数据"
+            })
+        }
+    })
+}),
+
+// 获取利润
+router.get("/getProfit", (req, res) => {
+    const sql = "SELECT SUM(price) as price FROM orders;"
+    sqlFn(sql, null, (result) => {
+        if (result.length > 0) {
+            res.send({
+                status: 200,
+                data: result,
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "暂无数据"
+            })
+        }
+    })
+})
+
+
 // 获取销量
 router.get("/getSales", (req, res) => {
     const sql = "SELECT type,SUM(sales) as sales FROM goods WHERE type BETWEEN 1 AND 5 group by type;"

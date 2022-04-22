@@ -255,12 +255,28 @@ const api = {
         })
     },
 
+    // 获取各种总数
+    getNum(params) {
+        return axios.get(base.getNum, {
+            params 
+        })
+    },
+
+    // 获取总利润
+    getProfit(params) {
+        return axios.get(base.getProfit, {
+            params 
+        })
+    },
+
     // 获取总额
     getSales(params) {
         return axios.get(base.getSales, {
             params 
         })
     },
+
+    
 
 }
 
