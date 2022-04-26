@@ -2,10 +2,10 @@
     <div class="ouDiv">
       <h2>{{goodsData.name}}</h2>
         <el-row :gutter="20">
-          <el-col :span="2"><div class="grid-content bg-purple">价格：{{goodsData.price}}</div></el-col>
+          <el-col :span="3"><div class="grid-content bg-purple">价格：{{goodsData.price}}</div></el-col>
           <!-- <el-col :span="2"><div class="grid-content bg-purple">类别：{{goodsData.type}}</div></el-col> -->
-          <el-col :span="2"><div class="grid-content bg-purple">销量：{{goodsData.sales}}</div></el-col>
-          <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col>
+          <el-col :span="3"><div class="grid-content bg-purple">销量：{{goodsData.sales}}</div></el-col>
+          <el-col :span="3"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col>
         </el-row>
         <el-row :gutter="20">
           <!-- <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col> -->
@@ -64,10 +64,17 @@ import store from '../store/index'
 
 
       created() {
-        console.log('详情页创建，返回数据：', this.$route.params)
+        // console.log('详情页创建，返回数据：', this.$route.params)
         this.gid = this.$route.params.gid
-        console.log(this.gid)
-  
+        this.$api.selectCart({
+          uid: store.state.loginModule.userinfo.uid,
+          gid: this.gid
+        }).then(res => {
+          if(res.data.status == 200){
+            this.btnStatus = false;
+            this.btnText = '从购物车删除'
+          }
+        })      
   
         this.$api.goodsDetail({
           gid: this.gid
@@ -90,7 +97,6 @@ import store from '../store/index'
             }).then(res => {
               this.commentList = res.data.data
               if(res.status == 200){
-                console.log('commentList:',this.commentList)
                 this.total = res.data.total;
                 this.pageSize = res.data.pageSize;
               }
@@ -160,18 +166,19 @@ import store from '../store/index'
       position:absolute;
       color: #000;
       text-align: left;
+      font-size: 20px;
     }
 
     .block {
       margin: 10px;
-      left: 63%;
+      right: 2%;
       top: 5%;
       position: absolute;
-      width: 35%;
-      height: 280px;
+      width: 45%;
+      height: 350px;
 
       border: 1px solid rgb(235, 235, 235);
-      border-radius: 10px 10px 0% 0%;
+      border-radius: 10px 10px 10px 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
       background-image: url('../assets/logo.png');
       background-size: cover;
@@ -192,12 +199,12 @@ import store from '../store/index'
       position: absolute;
       left: -1px;
       z-index: 9;
-      margin-top: -12%;;
+      margin-top: -18%;;
     }
 
     .tabDiv {
       position: relative;
-      margin-top: 10%
+      margin-top: 17%
     }
   
     ::v-deep .el-tabs__item {

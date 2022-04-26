@@ -195,7 +195,6 @@ router.get('/goodsDetail', (req, res) => {
 //  显示评论列表
 router.get('/showComments', (req, res) => {
     var gid = req.query.gid;
-    console.log("===================", gid)
     const sql = "select * from comment where gid =" + gid;
     sqlFn(sql, null, (result) => {
         if (result.length > 0) {
@@ -368,22 +367,68 @@ router.get("/delGoods", (req, res) => {
 })
 
 
+// 商品销量更新
+router.get("/updateSales", (req, res) => {
+    var gid = req.query.gid;
+    var num = req.query.num;
+    var sql = "update goods set sales = sales + " + num + " where gid = " + gid;
+    sqlFn(sql, null, result => {
+        console.log("销量更新：", sql);
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "修改成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "修改失败"
+            })
+        }
+    })
+})
+
+
 // ============================================= 购物车 ================================================
 
 // 获取购物车数据
-router.get("/getCart", (req, res) => {
+router.get('/getCart', (req, res) => {
     const page = req.query.page || 1;
+    var uid = req.query.uid
+    const sqlLen = "select * from cart where uid = "+ uid;
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = "select uid, cart.number, goods.gid, goods.name, goods.img, goods.price, goods.introduction " +
+        "from cart,goods where cart.uid =" + uid + 
+        " and cart.gid = goods.gid order by goods.gid asc limit 5 offset " + (page - 1) * 7
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 7,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+}),
+
+// 判断商品是否在购物车内
+router.get("/selectCart", (req, res) => {
     var uid = req.query.uid;
-    const sql = "select uid, cart.number, goods.gid, goods.name, goods.img, goods.price, goods.introduction " +
-    "from cart,goods where cart.uid =" + uid + " and cart.gid = goods.gid order by goods.gid asc limit 5 offset " + (page - 1) * 5
+    var gid = req.query.gid;
+    const sql = "SELECT * FROM cart where uid = " + uid + " and gid = " + gid;
     sqlFn(sql, null, (result) => {
-        const len = result.length;
         if (result.length > 0) {
             res.send({
                 status: 200,
                 data: result,
-                pageSize: 5,
-                total: len
             })
         } else {
             res.send({
@@ -393,7 +438,6 @@ router.get("/getCart", (req, res) => {
         }
     })
 })
-
 
 // 添加到购物车
 router.get("/addCart", (req, res) => {
@@ -415,7 +459,6 @@ router.get("/addCart", (req, res) => {
         }
     })
 })
-
 
 // 从购物车移除
 router.get("/delCart", (req, res) => {
@@ -791,7 +834,7 @@ router.get("/delProposal", (req, res) => {
 })
 
 
-
+// ===================================== 统计数据 ========================================
 
 //  获取各种总数
 router.get('/getNum', (req, res) => {
@@ -836,7 +879,7 @@ router.get("/getProfit", (req, res) => {
 
 // 获取销量
 router.get("/getSales", (req, res) => {
-    const sql = "SELECT type,SUM(sales) as sales FROM goods WHERE type BETWEEN 1 AND 5 group by type;"
+    const sql = "SELECT type,SUM(sales) as sales FROM goods WHERE type BETWEEN 0 AND 5 group by type;"
     sqlFn(sql, null, (result) => {
         if (result.length > 0) {
             res.send({

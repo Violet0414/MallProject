@@ -33,6 +33,11 @@ const routes = [
     name: 'login',
     component: Login,
   },
+  {
+    path: '/goodsDetail/:gid',
+    name: 'goodsDetail',
+    component: GoodsDetail
+  },
 
   {
     path: '/home',
@@ -60,11 +65,6 @@ const routes = [
         path: '/cart',
         name: 'cart',
         component: Cart
-      },
-      {
-        path: '/goodsDetail/:gid',
-        name: 'goodsDetail',
-        component: GoodsDetail
       },
       {
         path: '/myOrders',

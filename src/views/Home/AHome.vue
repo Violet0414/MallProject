@@ -27,7 +27,7 @@
         </el-col>
       </el-row>
     </div>
-    <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="main" style="width: 750px;height:550px;"></div>
     <EditProposal></EditProposal>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      columnData: [25, 43, 57, 30, 69, 32],
+      columnData: [],
 
       uNum: '',
       gNum: '',
@@ -56,10 +56,17 @@ export default {
     this.getGnum('goods', 'gid');
     this.getFnum('feedback', 'fid');
     this.getPnum();
+
   },
 
   mounted() {
-    this.draw()
+    this.$api.getSales().then(res => {
+      for(let i = 0; i < res.data.data.length; i++){
+        this.columnData[i] = res.data.data[i].sales
+        console.log(this.columnData)
+      }
+      this.draw()
+    })
   },
 
   methods: {

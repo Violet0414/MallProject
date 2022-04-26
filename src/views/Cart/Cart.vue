@@ -39,6 +39,7 @@ export default {
       byte: '',     // 清单字节
       gList: [],    // 清单
       idList: [],   // 选中的商品id
+      numList: [],  // 选中的数量num
     };
   },
 
@@ -53,6 +54,10 @@ export default {
 
     totalId: function()  {
       return this.idList.join(",")
+    },
+
+    num: function()  {
+      return this.numList.join(",")
     }
   },
 
@@ -72,6 +77,7 @@ export default {
           this.cartList = res.data.data
           this.total = res.data.total;
           this.pageSize = res.data.pageSize;
+          console.log(this.cartList)
         }
       })
     },
@@ -83,12 +89,16 @@ export default {
         this.sum = this.sum + sumPrice
         this.gList = this.gList.concat(this.byte)
         this.idList = this.idList.concat(itemGid)
+        this.numList = this.numList.concat(sumNum)
       } else {
         this.sum = this.sum - sumPrice
         this.gList.splice(this.gList.indexOf(this.byte), 1);
         this.idList.splice(this.idList.indexOf(itemGid), 1);
+        this.numList.splice(this.numList.indexOf(sumNum), 1);
       }
       console.log('itemGid:', itemGid)
+      console.log("===========",this.idList);
+      console.log("===========",this.numList);
       // console.log('祖爷爷组件接受到sumPrice:', this.sum, " itemName:", itemName, "sumNum:", this.sumNum, checked)
     },
 
@@ -128,6 +138,12 @@ export default {
           return false; 
           }
       });
+      for(let i=0; i<this.idList.length; i++) {
+        this.$api.updateSales({
+          gid: this.idList[i],
+          num: this.numList[i],
+        })
+      }
     },
 
     // 页面改变

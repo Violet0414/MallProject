@@ -70,6 +70,13 @@ const api = {
         })
     },
 
+    // 更新销量
+    updateSales(params) {
+        return axios.get(base.updateSales, {
+            params 
+        })
+    },
+
 
 
 // =================================== 购物车部分 ===================================
@@ -90,6 +97,13 @@ const api = {
     // 获取购物车商品
     getCart(params) {
         return axios.get(base.getCart, {
+            params 
+        })
+    },
+
+    // 查询商品是否在购物内
+    selectCart(params) {
+        return axios.get(base.selectCart, {
             params 
         })
     },

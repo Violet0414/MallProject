@@ -16,11 +16,13 @@ const base ={
     updateGoods: '/api/updateGoods',                // 更新商品
     delGoods: '/api/delGoods',                      // 删除商品
     addGoods: '/api/addGoods',                      // 添加商品
+    updateSales: '/api/updateSales',                // 更新销量
 
 // ============================================================================================    
     getCart: '/api/getCart',                        // 获取购物车数据
     addCart: '/api/addCart',                        // 添加到购物车
     delCart: '/api/delCart',                        // 移出购物车
+    selectCart: '/api/selectCart',                  // 判断商品是否已在购物车内
 
 
 

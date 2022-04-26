@@ -17,7 +17,7 @@
 
             <div class="ulDiv">
                 <ul style="font-size: 14px">
-                    <li>密码长度8-64位</li>
+                    <li>密码长度8-24位</li>
                     <li>需同时包含大写字母、小写字母、数字,不可使用特殊字符</li>
                     <li>密码不能包含邮箱</li>
                 </ul>
@@ -53,11 +53,11 @@ import store from '../../store/index'
           npwd: [
             { required: true, message: '请输入新密码', trigger: 'blur' },
             { min: 8, max: 64, message: '长度在 8 到 64 个字符', trigger: 'blur' },
-            { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,64}$/, message: '密码格式不正确', trigger: 'blur' },
+            { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,24}$/, message: '密码格式不正确', trigger: 'blur' },
           ],
           cpwd: [
             { required: true, message: true, message: '请确认新密码', trigger: 'blur' },
-            { min: 8, max: 64, message: '长度在 8 到 64 个字符', trigger: 'blur' }
+            { min: 8, max: 24, message: '长度在 8 到 24 个字符', trigger: 'blur' }
           ],
         }
       }
