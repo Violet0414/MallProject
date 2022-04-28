@@ -299,11 +299,12 @@ router.get("/updateGoods", (req, res) => {
     var name = req.query.name;
     var price = req.query.price
     var type = req.query.type;
+    var score = req.query.score;
     var parameter = req.query.parameter;
     var introduction = req.query.introduction;
     var img = req.query.img;
-    var sql = "update goods set name=?,type=?,price=?,parameter=?,introduction=?,img=? where gid=?";
-    var arr = [name, type, price, parameter, introduction, img, gid];
+    var sql = "update goods set name=?,type=?,price=?, score=?, parameter=?,introduction=?,img=? where gid=?";
+    var arr = [name, type, price, score, parameter, introduction, img, gid];
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
             res.send({
@@ -325,11 +326,12 @@ router.get("/addGoods", (req, res) => {
     var name = req.query.name;
     var price = req.query.price;
     var type = req.query.type;
+    var score = req.query.score;
     var parameter = req.query.parameter;
     var introduction = req.query.introduction;
     var img = req.query.imgUrl;
-    const sql = "insert into goods values (null,?,?,?,?,null,null,?,?)"
-    var arr = [type, img, name, price, parameter, introduction];
+    const sql = "insert into goods values (null,?,?,?,?,0,?,?,?)"
+    var arr = [type, img, name, price, score, parameter, introduction];
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
             res.send({

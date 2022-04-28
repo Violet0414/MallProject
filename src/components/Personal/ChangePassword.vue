@@ -64,7 +64,7 @@ import store from '../../store/index'
     },
 
     created() {
-      console.log('---------------', this.tableName);
+      // console.log('---------------', this.tableName);
     },
 
 

@@ -14,9 +14,19 @@
                   <el-input v-model="ruleForm.price"></el-input>
                 </el-form-item>
 
-
-                <el-form-item label="商品分类" prop="type">
+                <el-form-item label="商品分类" prop="type" style="float: left;">
                     <el-select v-model="ruleForm.type" placeholder="请选择类别">
+                      <el-option label="上新" value="0"></el-option>
+                      <el-option label="流行" value="1"></el-option>
+                      <el-option label="推荐" value="2"></el-option>
+                      <el-option label="特价" value="3"></el-option>
+                      <el-option label="爆款" value="4"></el-option>
+                      <el-option label="即将下架" value="5"></el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item label="评分" prop="score">
+                    <el-select v-model="ruleForm.score" placeholder="请评分">
                       <el-option label="1" value="1"></el-option>
                       <el-option label="2" value="2"></el-option>
                       <el-option label="3" value="3"></el-option>
@@ -101,6 +111,7 @@ export default {
           gid: '',
           name: '',
           type: '',
+          score: '',
           price: '',
           parameter: '', 
           introduction: '',
@@ -117,6 +128,10 @@ export default {
           ],
           type: [
             { required: true, message: '请选择商品类别', trigger: 'blur' },
+            // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          score: [
+            { required: true, message: '请评分', trigger: 'blur' },
             // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           parameter: [
@@ -155,12 +170,12 @@ export default {
         this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log('进入提交阶段')
-          let {gid, name, price, type, parameter, introduction, img} = this.ruleForm;
+          let {gid, name, price, type, score, parameter, introduction, img} = this.ruleForm;
           if (this.title === '编辑商品') {
             if(this.imgUrl != ''){        // 判断是否重新上传图片，若重新上传则重新赋值图片地址
               img = this.imgUrl;
             }
-            this.$api.updateGoods({gid, name, price, type, parameter, introduction, img})
+            this.$api.updateGoods({gid, name, price, type, score, parameter, introduction, img})
             .then((res) => {
               if(res.status == 200){
                 this.$message({
@@ -177,8 +192,8 @@ export default {
             })
           }else{
             let imgUrl = this.imgUrl;
-            console.log(gid, name, price, type, parameter, introduction, imgUrl)
-            this.$api.addGoods({gid, name, price, type, parameter, introduction, imgUrl})
+            console.log(gid, name, price, type, score, parameter, introduction, imgUrl)
+            this.$api.addGoods({gid, name, price, type, score, parameter, introduction, imgUrl})
             .then((res) => {
               if(res.status == 200){
                 this.$message({
