@@ -145,7 +145,7 @@
       }
       this.$api
         .getSearch({
-          search: val,
+          search: String(val),
           type: this.type
         })
         .then((res) => {
@@ -158,6 +158,10 @@
           } else {
             this.total = 1;
             this.pageSize = 1;
+            this.$message({
+              type: 'error',
+              message: '暂无此商品'
+            })
           }
         });
       },

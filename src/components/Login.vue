@@ -83,46 +83,55 @@ import Dialog from './Register.vue'
 
       ...mapMutations('loginModule', ['setUser']),
       submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            console.log('校验通过', this.ruleForm)
-            let {uid, pwd} = this.ruleForm;
-            this.$api.getLogin({
-              uid,
-              pwd,
-              type: this.type
-            }).then(res => {
-              console.log('返回数据：', res.data)
-              if(res.data.status === 200){
-                console.log(jwt(res.data.data))
-                // 数据存储
-                let obj = {
-                  uid: jwt(res.data.data).uid,
-                  name: jwt(res.data.data).name,
-                  token: res.data.data,
-                }
-                console.log(obj);
-                this.setUser(obj)
-                // 存储至本地
-                localStorage.setItem('user', JSON.stringify(obj))
-                if(this.type == 1) {
-                  this.$router.push('/aHome')
+        if(this.type === null) {
+          this.$message({
+            type: 'error',
+            message: '请选择登录身份'
+          })
+        }else {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+              console.log('校验通过', this.ruleForm)
+              let {uid, pwd} = this.ruleForm;
+              this.$api.getLogin({
+                uid,
+                pwd,
+                type: this.type
+              }).then(res => {
+                console.log('返回数据：', res.data)
+                if(res.data.status === 200){
+                  console.log(jwt(res.data.data))
+                  // 数据存储
+                  let obj = {
+                    uid: jwt(res.data.data).uid,
+                    name: jwt(res.data.data).name,
+                    token: res.data.data,
+                  }
+                  console.log(obj);
+                  this.setUser(obj)
+                  // 存储至本地
+                  localStorage.setItem('user', JSON.stringify(obj))
+                  if(this.type == 1) {
+                    this.$router.push('/aHome')
+                  }else{
+                    this.$router.push('/home')
+                  }
                 }else{
-                  this.$router.push('/home')
+                  this.$message({
+                    type: 'error',
+                    message: '账号或密码输入错误'
+                  })
                 }
-              }else{
-                this.$message({
-                  type: 'error',
-                  message: '账号或密码输入错误'
-                })
-              }
-            })
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
+              })
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        }
+
       },
+
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }

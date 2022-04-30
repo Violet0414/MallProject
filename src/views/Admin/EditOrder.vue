@@ -143,14 +143,17 @@
 
       // 通过输入查询
       searchInput(val){
+      console.log('searchInput执行');
        if (!val) {
         this.showOrders(1, this.type);
+        console.log('val为空执行');
         this.currentPage = 1;
         return;
       }
       this.$api
         .searchOrder({
           search: val,
+          type: this.type
         })
         .then((res) => {
           console.log("搜索---", res.data);
@@ -162,15 +165,12 @@
           } else {
             this.total = 1;
             this.pageSize = 1;
+            this.$message({
+              type: 'error',
+              message: '暂无此订单'
+            })
           }
         });
-      },
-
-
-      // 改变传入的type值。调用输入查询方法
-      getSearch(val) {
-        this.type = 'name'
-        this.searchInput(val)
       },
 
 

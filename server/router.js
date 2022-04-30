@@ -578,13 +578,14 @@ router.get("/delOrder", (req, res) => {
 // 搜索订单
 router.get('/searchOrder', (req, res) => {
     const page = req.query.page || 1;
+    var type = req.query.type;
     var search = req.query.search;
-    const sqlLen = "select * from orders where concat(`oid`, `uid`) like '%" + search + "%'";
+    const sqlLen = "select * from orders where concat(`oid`, `uid`) like '%" + search + "%' and type = " + type;
     sqlFn(sqlLen, null, data => {
         let len = data.length;
         const sql = 
         "select * from orders where concat(`oid`, `uid`, `detail`) like '%" + search 
-        + "%' order by oid asc limit 10 offset " + (page - 1) * 10;
+        + "%' and type = " + type + " order by oid asc limit 10 offset " + (page - 1) * 10;
         sqlFn(sql, null, result => {
             if (result.length > 0) {
                 res.send({

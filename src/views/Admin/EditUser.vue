@@ -122,13 +122,12 @@
           } else {
             this.total = 1;
             this.pageSize = 1;
+            this.$message({
+              type: 'error',
+              message: '暂无此用户'
+            })
           }
         });
-      },
-
-      // 调用输入查询方法
-      getSearch(val) {
-        this.searchInput(val)
       },
 
 
