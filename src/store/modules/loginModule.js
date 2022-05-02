@@ -5,6 +5,7 @@ export default {
       uid: '',
       name: '',
       token: '',
+      type: null,
     }
   },
   mutations: {
@@ -16,6 +17,7 @@ export default {
         uid: '',
         name: '',
         token: '',
+        type: null
       }
     }
   },

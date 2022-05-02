@@ -106,6 +106,7 @@ import Dialog from './Register.vue'
                     uid: jwt(res.data.data).uid,
                     name: jwt(res.data.data).name,
                     token: res.data.data,
+                    type: this.type,
                   }
                   console.log(obj);
                   this.setUser(obj)

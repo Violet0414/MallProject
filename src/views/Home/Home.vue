@@ -74,9 +74,6 @@ export default {
     }
   },
 
-  
-
-
 
   methods: {
     dialog() {

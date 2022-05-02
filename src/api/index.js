@@ -145,6 +145,13 @@ const api = {
         })
     },
 
+    // 搜索个人订单
+    searchMyorders(params) {
+        return axios.get(base.searchMyorders, {
+            params 
+        })
+    },
+
     // 更改订单状态
     changeOrder(params) {
         return axios.get(base.changeOrder, {

@@ -509,6 +509,37 @@ router.get("/addOrder", (req, res) => {
     })
 })
 
+// 搜索个人订单
+router.get('/searchMyorders', (req, res) => {
+    const page = req.query.page || 1;
+    var type = req.query.type;
+    var search = req.query.search;
+    var uid = req.query.uid;
+    const sqlLen = "select * from orders where concat(`detail`) like '%" + search 
+    + "%' and type = " + type + " and uid = " + uid;
+    sqlFn(sqlLen, null, data => {
+        let len = data.length;
+        const sql = 
+        "select * from orders where concat(`detail`) like '%" + search 
+        + "%' and type = " + type + " and uid = " + uid + " order by oid asc limit 10 offset " + (page - 1) * 10;
+        sqlFn(sql, null, result => {
+            if (result.length > 0) {
+                res.send({
+                    status: 200,
+                    data: result,
+                    pageSize: 10,
+                    total: len
+                })
+            } else {
+                res.send({
+                    status: 500,
+                    msg: "暂无数据"
+                })
+            }
+        })
+    })
+})
+
 // 管理员获取订单列表
 router.get("/showOrders", (req, res) => {
     const page = req.query.page || 1;

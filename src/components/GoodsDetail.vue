@@ -17,7 +17,7 @@
         </div>
 
         <div class="tabDiv">
-          <el-button type="warning" icon="el-icon-star-off" class="collection" 
+          <el-button v-show="state != 1" type="warning" icon="el-icon-star-off" class="collection" 
           :style="getStyle()" @click="addCart"> {{btnText}} 
           </el-button>
 
@@ -58,7 +58,9 @@ import store from '../store/index'
           btnStatus: true,
           btnText: '加入购物车',
 
-          dialogVisible: false
+          dialogVisible: false,
+
+          state: store.state.loginModule.userinfo.type,
         }
       },
 

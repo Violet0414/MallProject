@@ -119,16 +119,21 @@
 
       // 通过输入查询
       searchInput(val){
+      console.log('searchInput执行');
        if (!val) {
-        this.myOrders(1, this.type);
+        this.showOrders(1, this.type);
+        console.log('val为空执行');
         this.currentPage = 1;
         return;
       }
       this.$api
-        .searchOrder({
+        .searchMyorders({
           search: val,
+          type: this.type,
+          uid: store.state.loginModule.userinfo.uid
         })
         .then((res) => {
+          console.log("搜索---", res.data);
           this.currentPage = 1;
           if (res.data.status === 200) {
             this.tableData = res.data.data
@@ -140,7 +145,7 @@
             this.$message({
               type: 'error',
               message: '暂无此订单'
-            }); 
+            })
           }
         });
       },
