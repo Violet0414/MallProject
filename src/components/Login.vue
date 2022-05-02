@@ -142,11 +142,15 @@ import Dialog from './Register.vue'
 <style scoped>
 
   .outDiv {
-      background-image: url('../assets/demo1.jpg');
-      background-size: cover;
-      overflow: hidden;
-      height: 100%;
-    }
+    position: fixed;
+    background-image: url('../assets/demo1.jpg');
+    background-size: cover;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    top:0;
+    left: 0;
+  }
 
   .loginDiv {
     width: 470px;

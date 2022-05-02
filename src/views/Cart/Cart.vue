@@ -198,4 +198,9 @@ export default {
     right: 10%;
   }
 
+  .page {
+    position: absolute;
+    left: 45%;
+  }
+
 </style>

@@ -2,7 +2,7 @@
     <div class="outDiv">
       <div class="searchDiv">
         <el-input placeholder="请输入您所要查询的商品" @change="getSearch" v-model="input" clearable></el-input>
-        <el-button type="primary" icon="el-icon-search"></el-button>
+        <el-button type="primary" icon="el-icon-search">搜索</el-button>
       </div>
 
       <el-tabs v-model="activeName" @tab-click="cHandleClick">
