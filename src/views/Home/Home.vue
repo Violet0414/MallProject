@@ -21,7 +21,7 @@
         <i class="el-icon-location">   地址: XXXXXX-XXXXX-666号</i>
         <i class="el-icon-phone">   联系电话: 1999911</i>
         <li class="el-icon-s-promotion">   邮箱: @554893.qq.com</li>
-        <el-button type="primary" round @click="dialog" icon="el-icon-upload">提出反馈</el-button>
+        <el-button type="primary" round @click="dialog" icon="el-icon-upload" class="fbbtn">提出反馈</el-button>
     </el-footer>
 
     <el-dialog
@@ -187,6 +187,9 @@ export default {
     background-size: cover;
   }
 
+  .fbbtn {
+    z-index: 99999;
+  }
 
 
 /* 页面布局背景 */

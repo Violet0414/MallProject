@@ -3,6 +3,7 @@
         <el-dialog
         title="注册"
         :visible.sync="dialogVisible"
+        :modal-append-to-body='false'
         width="50%"> 
 
              <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
