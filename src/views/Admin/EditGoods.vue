@@ -27,9 +27,9 @@
       <el-table-column
         prop="img"
         label="商品图"
-        width="110">
+        width="120">
         <template slot-scope="scope">
-          <img :src="scope.row.img" style="width:100px;height:100px;"/>
+          <img :src="scope.row.img" style="width:110px;height:80px;"/>
         </template>
       </el-table-column>
 
@@ -42,11 +42,6 @@
         prop="name"
         label="名称"
         width="110">
-      </el-table-column>
-      <el-table-column
-        prop="type"
-        label="类别"
-        width="80">
       </el-table-column>
       <el-table-column
         prop="price"
@@ -276,7 +271,7 @@
   } 
 
   .form{
-    left: 15%;
+    left: 18%;
   }
 
   .page {

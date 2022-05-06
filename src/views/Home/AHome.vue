@@ -107,8 +107,7 @@ export default {
       this.$api.getProfit({
         }).then(res => {
           if(res.status == 200){
-            this.pNum = res.data.data[0].price;
-            console.log("+++++++++++++++++++++++++++++++++++++++++++", res.data.data[0].price)
+            this.pNum = res.data.data[0].price.toFixed(2);
           }
       })
     },

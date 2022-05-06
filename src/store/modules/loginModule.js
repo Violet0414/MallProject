@@ -4,6 +4,7 @@ export default {
     userinfo: {
       uid: '',
       name: '',
+      address: '',
       token: '',
       type: null,
     }
@@ -16,6 +17,7 @@ export default {
       state.userinfo = {
         uid: '',
         name: '',
+        address: '',
         token: '',
         type: null
       }

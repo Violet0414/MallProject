@@ -36,7 +36,6 @@ const api = {
         })
     },
 
-    
     // 修改个人信息
     changeMessage(params) {
         console.log('parmas:',params)
@@ -54,7 +53,6 @@ const api = {
         })
     },
 
-
     // 特殊商品
     specialGoods(params) {
         return axios.get(base.specialGoods, {
@@ -62,7 +60,6 @@ const api = {
         })
     },
 
-    
     // 搜索商品
     getSearch(params) {
         return axios.get(base.getSearch, {
@@ -73,6 +70,20 @@ const api = {
     // 更新销量
     updateSales(params) {
         return axios.get(base.updateSales, {
+            params 
+        })
+    },
+
+    // 查询库存
+    selectStock(params) {
+        return axios.get(base.selectStock, {
+            params 
+        })
+    },
+
+    // 更新库存
+    updateStock(params) {
+        return axios.get(base.updateStock, {
             params 
         })
     },
@@ -92,7 +103,6 @@ const api = {
             params 
         })
     },
-
 
     // 获取购物车商品
     getCart(params) {
@@ -168,14 +178,12 @@ const api = {
         })
     },
 
-
     // 修改商品信息
     updateGoods(params) {
         return axios.get(base.updateGoods, {
             params 
         })
     },
-
 
     // 添加商品
     addGoods(params) {
@@ -184,7 +192,6 @@ const api = {
         })
     },
 
-
     // 删除商品
     delGoods(params) {
         return axios.get(base.delGoods, {
@@ -192,14 +199,12 @@ const api = {
         })
     },
 
-
     // 展示评论
     showComments(params) {
         return axios.get(base.showComments, {
             params 
         })
     },
-
 
     // 添加评论
     addComments(params) {
@@ -246,14 +251,12 @@ const api = {
         })
     },
 
-
     // 搜索评论
     searchComment(params) {
         return axios.get(base.searchComment, {
             params 
         })
     },
-
     
     // 提交反馈
     addFeedback(params) {

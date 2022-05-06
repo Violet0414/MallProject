@@ -10,8 +10,12 @@
                   <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
 
-                <el-form-item label="商品价格" prop="price">
+                <el-form-item label="商品价格" prop="price" style="float: left;">
                   <el-input v-model="ruleForm.price"></el-input>
+                </el-form-item>
+
+                <el-form-item label="库存数量" prop="stock">
+                  <el-input v-model="ruleForm.stock"></el-input>
                 </el-form-item>
 
                 <el-form-item label="商品分类" prop="type" style="float: left;">
@@ -112,6 +116,7 @@ export default {
           name: '',
           type: '',
           score: '',
+          stock: '',
           price: '',
           parameter: '', 
           introduction: '',
@@ -132,6 +137,10 @@ export default {
           ],
           score: [
             { required: true, message: '请评分', trigger: 'blur' },
+            // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          stock: [
+            { required: true, message: '请输入库存数量', trigger: 'blur' },
             // { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
           parameter: [
@@ -170,12 +179,12 @@ export default {
         this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log('进入提交阶段')
-          let {gid, name, price, type, score, parameter, introduction, img} = this.ruleForm;
+          let {gid, name, price, type, score, parameter, introduction, img, stock} = this.ruleForm;
           if (this.title === '编辑商品') {
             if(this.imgUrl != ''){        // 判断是否重新上传图片，若重新上传则重新赋值图片地址
               img = this.imgUrl;
             }
-            this.$api.updateGoods({gid, name, price, type, score, parameter, introduction, img})
+            this.$api.updateGoods({gid, name, price, type, score, parameter, introduction, img, stock})
             .then((res) => {
               if(res.status == 200){
                 this.$message({
@@ -192,8 +201,7 @@ export default {
             })
           }else{
             let imgUrl = this.imgUrl;
-            console.log(gid, name, price, type, score, parameter, introduction, imgUrl)
-            this.$api.addGoods({gid, name, price, type, score, parameter, introduction, imgUrl})
+            this.$api.addGoods({gid, name, price, type, score, parameter, introduction, imgUrl, stock})
             .then((res) => {
               if(res.status == 200){
                 this.$message({

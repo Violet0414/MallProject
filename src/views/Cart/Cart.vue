@@ -4,7 +4,7 @@
       <div class="totalPrice">
         <p>清单：{{totalNum}}</p>
         <span>合计:{{totalPrice}}￥</span>
-        <el-button type="danger" round class="tBtn" @click="settlement">结算</el-button>
+        <el-button type="danger" round class="tBtn" @click="selectStock">结算</el-button>
       </div>
     </div>
     <CartList :cartList="cartList" @sumPrice="sumPrice"></CartList>
@@ -35,11 +35,12 @@ export default {
       total: 5,
       pageSize: 1,
       
-      sum: 0,       // 总价
-      byte: '',     // 清单字节
-      gList: [],    // 清单
-      idList: [],   // 选中的商品id
-      numList: [],  // 选中的数量num
+      sum: 0,         // 总价
+      byte: '',       // 清单字节
+      gList: [],      // 清单
+      idList: [],     // 选中的商品id
+      numList: [],    // 选中的数量num
+      stockList: [],  // 库存数量列表
     };
   },
 
@@ -58,7 +59,7 @@ export default {
 
     num: function()  {
       return this.numList.join(",")
-    }
+    },
   },
 
   created() {
@@ -77,7 +78,6 @@ export default {
           this.cartList = res.data.data
           this.total = res.data.total;
           this.pageSize = res.data.pageSize;
-          console.log(this.cartList)
         }
       })
     },
@@ -96,21 +96,41 @@ export default {
         this.idList.splice(this.idList.indexOf(itemGid), 1);
         this.numList.splice(this.numList.indexOf(sumNum), 1);
       }
-      console.log('itemGid:', itemGid)
-      console.log("===========",this.idList);
-      console.log("===========",this.numList);
+      // console.log('itemGid:', itemGid)
+      // console.log("===========",this.idList);
+      // console.log("===========",this.numList);
       // console.log('祖爷爷组件接受到sumPrice:', this.sum, " itemName:", itemName, "sumNum:", this.sumNum, checked)
     },
 
+
+    // 查询库存数量后并生结算成订单
+    selectStock() {
+      for(let i=0; i<this.idList.length; i++) {
+        this.$api.selectStock({
+          gid: this.idList[i],
+        }).then(res => {
+          this.stockList.push(res.data.data[0])
+        })
+      }
+      setTimeout(() => {
+        for(let i=0; i<this.idList.length; i++) {
+          if(this.stockList[i] < this.numList[i]) {
+            this.$message.error('购买数量超出库存数量');
+            this.stockList.length = 0
+            return
+          }else if(i+1 == this.idList.length) {
+            this.settlement()
+          }
+        }
+      }, 1000);
+    },
+
+
     // 购物车结算事件
     settlement() {
-      console.log('结算ID:', this.idList)
-      console.log('结算清单:', this.totalNum, this.totalPrice)
-      console.log('======')
-      
       this.$api.addOrder({
         uid: store.state.loginModule.userinfo.uid,
-        address: '测试地址',
+        address: store.state.loginModule.userinfo.address,
 
         gid: this.idList,
         detail: this.totalNum,
@@ -140,6 +160,10 @@ export default {
       });
       for(let i=0; i<this.idList.length; i++) {
         this.$api.updateSales({
+          gid: this.idList[i],
+          num: this.numList[i],
+        })
+        this.$api.updateStock({
           gid: this.idList[i],
           num: this.numList[i],
         })

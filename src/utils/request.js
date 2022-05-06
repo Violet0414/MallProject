@@ -41,9 +41,8 @@ const  ErrorHandle=(status, info) => {
 
 //自定义新建一个 axios 实例
 const install = axios.create({
-    // baseURL:'http://iwenwiki.com',//网络请求的基础路径 
-    baseURL:process.env.VUE_APP_BASE_URL,//网络请求的基础路径 
-    timeout: 5000,//请求等待时间 时间到了后台没有返回数据 请求中断
+    baseURL:process.env.VUE_APP_BASE_URL,   //网络请求的基础路径 
+    timeout: 5000,                          //请求等待时间 时间到了后台没有返回数据 请求中断
 })
 
 
@@ -62,7 +61,7 @@ install.interceptors.request.use(function (config) {
     }else{
         return config;
     }
-    // console.log('添加请求拦截器--config',config);
+    // 请求拦截器
     // 在发送请求之前做些什么
     return config;
   }, function (error) {
@@ -70,7 +69,7 @@ install.interceptors.request.use(function (config) {
     return Promise.reject(error);
   });
 
-// 添加响应拦截器
+// 响应拦截器
 install.interceptors.response.use(
     response=>response,
     error=>{

@@ -105,6 +105,7 @@ import Dialog from './Register.vue'
                   let obj = {
                     uid: jwt(res.data.data).uid,
                     name: jwt(res.data.data).name,
+                    address: jwt(res.data.data).address,
                     token: res.data.data,
                     type: this.type,
                   }

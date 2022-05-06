@@ -40,6 +40,7 @@ router.post('/login', (req, res) => {
             let token = jwt.sign({
                 uid: result[0].uid,
                 name: result[0].name,
+                address: result[0].address,
             }, config.jwtSecert, {
                 expiresIn: 20 * 1
             })
@@ -303,9 +304,10 @@ router.get("/updateGoods", (req, res) => {
     var parameter = req.query.parameter;
     var introduction = req.query.introduction;
     var img = req.query.img;
-    var sql = "update goods set name=?,type=?,price=?, score=?, parameter=?,introduction=?,img=? where gid=?";
-    var arr = [name, type, price, score, parameter, introduction, img, gid];
-    sqlFn(sql, arr, result => {
+    var stock = req.query.stock
+    var sql = "update goods set name=?, type=?, price=?, stock=?, score=?, parameter=?,introduction=?,img=? where gid=?";
+    var arr = [name, type, price, stock, score, parameter, introduction, img, gid];
+    sqlFn(sql, arr, result => {    
         if (result.affectedRows > 0) {
             res.send({
                 status: 200,
@@ -330,8 +332,9 @@ router.get("/addGoods", (req, res) => {
     var parameter = req.query.parameter;
     var introduction = req.query.introduction;
     var img = req.query.imgUrl;
-    const sql = "insert into goods values (null,?,?,?,?,0,?,?,?)"
-    var arr = [type, img, name, price, score, parameter, introduction];
+    var stock = req.query.stock;
+    const sql = "insert into goods values (null,?,?,?,?,0,?,?,?,?)"
+    var arr = [type, img, name, price, score, parameter, introduction, stock];
     sqlFn(sql, arr, result => {
         if (result.affectedRows > 0) {
             res.send({
@@ -376,6 +379,50 @@ router.get("/updateSales", (req, res) => {
     var sql = "update goods set sales = sales + " + num + " where gid = " + gid;
     sqlFn(sql, null, result => {
         console.log("销量更新：", sql);
+        if (result.affectedRows > 0) {
+            res.send({
+                status: 200,
+                msg: "修改成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "修改失败"
+            })
+        }
+    })
+})
+
+
+// 商品库存查询
+router.get("/selectStock", (req, res) => {
+    var gid = req.query.gid;
+    var sql = "select stock from goods where gid = " + gid;
+    sqlFn(sql, null, result => {
+        console.log("库存查询：", sql);
+        console.log("result:", result[0].stock);
+        if (result.length > 0) {
+            res.send({
+                status: 200,
+                data: result[0].stock,
+                msg: "查询成功"
+            })
+        } else {
+            res.send({
+                status: 500,
+                msg: "查询失败"
+            })
+        }
+    })
+})
+
+// 商品库存更新
+router.get("/updateStock", (req, res) => {
+    var gid = req.query.gid;
+    var num = req.query.num;
+    var sql = "update goods set stock = stock - " + num + " where gid = " + gid;
+    sqlFn(sql, null, result => {
+        console.log("库存更新：", sql);
         if (result.affectedRows > 0) {
             res.send({
                 status: 200,

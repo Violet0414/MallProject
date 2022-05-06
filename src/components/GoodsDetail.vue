@@ -3,13 +3,11 @@
       <h2>{{goodsData.name}}</h2>
         <el-row :gutter="20">
           <el-col :span="3"><div class="grid-content bg-purple">价格：{{goodsData.price}}</div></el-col>
-          <!-- <el-col :span="2"><div class="grid-content bg-purple">类别：{{goodsData.type}}</div></el-col> -->
           <el-col :span="3"><div class="grid-content bg-purple">销量：{{goodsData.sales}}</div></el-col>
           <el-col :span="3"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col>
+          <el-col :span="3"><div class="grid-content bg-purple">库存：{{goodsData.stock}}</div></el-col>
         </el-row>
-        <el-row :gutter="20">
-          <!-- <el-col :span="2"><div class="grid-content bg-purple">评分：{{goodsData.score}}</div></el-col> -->
-        </el-row>
+        <el-row :gutter="20"></el-row>
         
 
         <div class="block">
@@ -17,7 +15,7 @@
         </div>
 
         <div class="tabDiv">
-          <el-button v-show="state != 1" type="warning" icon="el-icon-star-off" class="collection" 
+          <el-button :disabled="isAble" v-show="state != 1" type="warning" icon="el-icon-star-off" class="collection" 
           :style="getStyle()" @click="addCart"> {{btnText}} 
           </el-button>
 
@@ -25,7 +23,7 @@
             <el-tab-pane label="参数" name="first">{{goodsData.parameter}}</el-tab-pane>
             <el-tab-pane label="简介" name="second">{{goodsData.introduction}}</el-tab-pane>
             <el-tab-pane label="评论" name="third">
-              <el-button type="primary" icon="el-icon-edit" @click="addComment">添加评论</el-button>
+              <el-button type="primary" v-show="state != 1" icon="el-icon-edit" @click="addComment">添加评论</el-button>
 
               <Dialog :dialogVisible="dialogVisible" :gid="gid" @changeDialog="changeDialog"></Dialog>
               <CommentList :commentList="commentList"></CommentList>
@@ -61,12 +59,12 @@ import store from '../store/index'
           dialogVisible: false,
 
           state: store.state.loginModule.userinfo.type,
+          isAble: false,
         }
       },
 
 
       created() {
-        // console.log('详情页创建，返回数据：', this.$route.params)
         this.gid = this.$route.params.gid
         this.$api.selectCart({
           uid: store.state.loginModule.userinfo.uid,
@@ -154,7 +152,10 @@ import store from '../store/index'
     
 
         getStyle() {
-          if(this.btnStatus === false) {
+          if(this.goodsData.stock == 0) {
+            this.isAble = true
+            this.btnText = "缺货"
+          }else if(this.btnStatus === false) {
             return {background: 'red !important' }
           }
         },
@@ -174,7 +175,7 @@ import store from '../store/index'
     .block {
       margin: 10px;
       right: 2%;
-      top: 5%;
+      margin-top: -12%;
       position: absolute;
       width: 45%;
       height: 350px;
