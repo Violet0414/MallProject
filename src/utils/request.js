@@ -48,7 +48,7 @@ const install = axios.create({
 
 //拦截器 
 install.interceptors.request.use(function (config) {
-    console.log('触发请求拦截器',config);
+    console.log('触发请求拦截器', config);
     //处理post请求发送的参数格式
     if(config.method==='post'){
         config.data = qs.stringify(config.data)
@@ -73,7 +73,7 @@ install.interceptors.request.use(function (config) {
 install.interceptors.response.use(
     response=>response,
     error=>{
-        console.log('响应拦截器错误',error);
+        console.log('响应拦截器错误', error);
         let { response } = error;
         ErrorHandle(response.status,response.info)
   });

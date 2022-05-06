@@ -191,6 +191,9 @@ export default {
                   type: 'success',
                   message: '修改成功'
                 })
+                setTimeout(() => {
+                  history.go(0)
+                }, 700);
               }else {
                 this.$message({
                   type: 'error',
@@ -206,8 +209,11 @@ export default {
               if(res.status == 200){
                 this.$message({
                   type: 'success',
-                  message: '添加成功'
+                  message: '添加成功' 
                 })
+                setTimeout(() => {
+                  history.go(0)
+                }, 700);
               }
             }) 
           }
@@ -216,9 +222,7 @@ export default {
           return false;
         }
         });
-        setTimeout(() => {
-          history.go(0)
-        }, 700);
+        
       },
     }
 }

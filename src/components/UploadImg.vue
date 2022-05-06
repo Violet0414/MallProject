@@ -4,6 +4,7 @@
           :action="url"
           ref="upload"
           list-type="picture-card"
+          :before-upload="beforeUpload"
           :on-preview="handlePictureCardPreview"
           :on-success= "successUpload"
           :on-remove="handleRemove">
@@ -25,6 +26,7 @@
         dialogImageUrl: '',
       };
     },
+
     methods: {
       handleRemove(file, fileList) {
         console.log(file, fileList);
@@ -33,6 +35,19 @@
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
+      },
+
+      beforeUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPNG = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 <= 3;
+        if (!(isJPG || isPNG)) {
+          this.$message.error('上传头像图片只能是 jpg/png 格式')
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 3MB')
+        }
+        return (isPNG || isJPG) && isLt2M
       },
 
       submitUpload() {
@@ -47,7 +62,7 @@
         });
         // 将图片上传成功的返回数据传递给父组件
         let imgUrl = base.host + '/' + res.url.slice(7);
-        console.log("uploadimg下的imgUrl:",imgUrl);
+        console.log("uploadimg下的imgUrl:", imgUrl);
         this.$emit('sendImg', imgUrl)
       },
 

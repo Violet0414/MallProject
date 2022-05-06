@@ -122,7 +122,7 @@ export default {
             this.settlement()
           }
         }
-      }, 1000);
+      }, 800);
     },
 
 
