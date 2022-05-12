@@ -119,10 +119,11 @@ export default {
             this.stockList.length = 0
             return
           }else if(i+1 == this.idList.length) {
+            this.stockList.length = 0
             this.settlement()
           }
         }
-      }, 800);
+      }, 1000);
     },
 
 

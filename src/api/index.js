@@ -298,9 +298,7 @@ const api = {
         return axios.get(base.getSales, {
             params 
         })
-    },
-
-    
+    },  
 
 }
 

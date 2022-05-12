@@ -15,14 +15,14 @@ app.use(bodyParser.text())
 
 
 
-// //资源共享
+// 资源共享
 const cors = require('cors')
 app.use(cors())
 
-// //静态文件托管 ----  访问：http:localhost:8888/图片.jpg
+// 静态文件托管 ----  访问：http:localhost:8888/图片.jpg
 app.use(express.static('upload'))
 
-//路由
+// 路由
 const router = require('./router')
 // const { turn } = require('core-js/core/array')
 

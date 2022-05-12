@@ -3,9 +3,9 @@ const mysql = require('mysql')
 
 //创建数据库连接
 const client = mysql.createConnection({
-    host: 'localhost',  //数据域名 地址
-    user: 'root',       //数据名称
-    password: 'mWXWSddss', //数据库密码 xampp集成
+    host: 'localhost', 
+    user: 'root',       
+    password: 'mWXWSddss', 
     database: 'mallsystem',
     // port:'3306'
 })
