@@ -96,10 +96,6 @@ export default {
         this.idList.splice(this.idList.indexOf(itemGid), 1);
         this.numList.splice(this.numList.indexOf(sumNum), 1);
       }
-      // console.log('itemGid:', itemGid)
-      // console.log("===========",this.idList);
-      // console.log("===========",this.numList);
-      // console.log('祖爷爷组件接受到sumPrice:', this.sum, " itemName:", itemName, "sumNum:", this.sumNum, checked)
     },
 
 
